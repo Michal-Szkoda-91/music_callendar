@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/buidler_callendar_container.dart';
+
 class TodayBuilder extends StatelessWidget {
   const TodayBuilder({
     Key? key,
@@ -10,19 +12,10 @@ class TodayBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(0.5),
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Theme.of(context).primaryColor,
-        ),
-      ),
-      child: Text(
-        day.day.toString(),
-        style: TextStyle(color: Colors.blue),
-      ),
+    return BuilderCallendarContainer(
+      color: Colors.blueAccent,
+      day: day,
+      child: Center(),
     );
   }
 }
