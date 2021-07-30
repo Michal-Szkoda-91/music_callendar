@@ -7,7 +7,8 @@ import '../builders/selected_day_builder.dart';
 import '../builders/today_builder.dart';
 
 class CustomTableCalendar extends StatefulWidget {
-  CustomTableCalendar({Key? key}) : super(key: key);
+  CustomTableCalendar({Key? key, required this.firstDay}) : super(key: key);
+  final String firstDay;
 
   @override
   _CustomTableCalendarState createState() => _CustomTableCalendarState();
@@ -16,9 +17,11 @@ class CustomTableCalendar extends StatefulWidget {
 class _CustomTableCalendarState extends State<CustomTableCalendar> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
+  late DateTime _startDate;
 
   @override
   Widget build(BuildContext context) {
+    _startDate = DateTime.parse(widget.firstDay);
     return TableCalendar(
       locale: 'pl_PL',
       calendarFormat: CalendarFormat.month,
