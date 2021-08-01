@@ -5,6 +5,7 @@ import '../builders/default_builder.dart';
 import '../builders/holiday_builder.dart';
 import '../builders/selected_day_builder.dart';
 import '../builders/today_builder.dart';
+import 'adding_event_button.dart';
 
 class CustomTableCalendar extends StatefulWidget {
   CustomTableCalendar({Key? key}) : super(key: key);
@@ -65,11 +66,13 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
             },
           ),
         ),
-        TextButton.icon(
-          onPressed: () {},
-          icon: Icon(Icons.headphones),
-          label: Text("Rozpocznij Grę"),
+        Spacer(),
+        AddingEventButton(
+          dateTime: _focusedDay,
         ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.2,
+        )
       ],
     );
   }
