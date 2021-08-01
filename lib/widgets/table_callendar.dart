@@ -68,7 +68,7 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
         TextButton.icon(
           onPressed: () {},
           icon: Icon(Icons.headphones),
-          label: Text("Rozpocznij grę"),
+          label: Text("Rozpocznij Grę"),
         ),
       ],
     );
