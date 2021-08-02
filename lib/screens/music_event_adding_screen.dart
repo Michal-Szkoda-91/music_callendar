@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../widgets/target_time_row.dart';
+import '../widgets/note_floating_act_bar.dart';
+import '../widgets/play_time_row.dart';
+
 class MusicEventAddingScreen extends StatefulWidget {
   final DateTime dateTime;
   MusicEventAddingScreen({Key? key, required this.dateTime}) : super(key: key);
@@ -11,7 +15,6 @@ class MusicEventAddingScreen extends StatefulWidget {
 
 class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
   late String _appBarDate;
-  double playTime = 0.0;
   @override
   void initState() {
     super.initState();
@@ -37,13 +40,8 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('Czas gry:'),
-                  Text('${playTime.toInt()}'),
-                ],
-              ),
+              TargetTimeRow(),
+              PlayTimeRow(),
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
@@ -55,10 +53,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.notes),
-        ),
+        floatingActionButton: NoteFloatingBar(),
       ),
     );
   }
