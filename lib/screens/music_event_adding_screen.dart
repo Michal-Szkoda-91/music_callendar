@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:music_callendar/databaseHelper/databaseHelper.dart';
+import 'package:music_callendar/models/music_day_event.dart';
+import 'package:provider/provider.dart';
 
+import '../models/music_day_provider.dart';
 import '../widgets/target_time_row.dart';
 import '../widgets/note_floating_act_bar.dart';
 import '../widgets/play_time_row.dart';
@@ -15,14 +19,17 @@ class MusicEventAddingScreen extends StatefulWidget {
 
 class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
   late String _appBarDate;
+  DatabaseHelper helper = DatabaseHelper();
   @override
   void initState() {
     super.initState();
-    _appBarDate = DateFormat.MMMMEEEEd('pl_PL').format(widget.dateTime);
+    _appBarDate = DateFormat.yMd('pl_PL').format(widget.dateTime);
   }
 
   @override
   Widget build(BuildContext context) {
+    //Providers
+    Provider.of<MusicProvider>(context, listen: false).setDate(_appBarDate);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -69,7 +76,18 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                     Theme.of(context).accentColor,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  var data = Provider.of<MusicProvider>(context, listen: false);
+                  helper.insertEvent(
+                    MusicEvent(
+                      id: data.temporaryMusicEvent.id,
+                      playTime: data.temporaryMusicEvent.playTime,
+                      targetTime: data.temporaryMusicEvent.targetTime,
+                      note: data.temporaryMusicEvent.note,
+                    ),
+                  );
+                  Navigator.of(context).pop();
+                },
                 icon: Icon(Icons.save),
                 label: Text("Zapisz wynik"),
               ),

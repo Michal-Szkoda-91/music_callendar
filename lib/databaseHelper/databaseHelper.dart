@@ -1,45 +1,54 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:music_callendar/models/music_day_event.dart';
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 final musicEventTABLE = 'MusicEventTable';
 
-final String columnId = 'id';
+final String columnID = 'id';
 final String columnPlayTime = 'playTime';
-final String columnDate = 'date';
+final String columnTargetTime = 'targetTime';
 final String columnNote = 'note';
-final String columnCanByOmmited = 'canByOmmited';
 
-class DatabaseProvider {
-  static final DatabaseProvider dbProvider = DatabaseProvider();
-  late Database _database;
-
-  Future<Database> get database async {
-    _database = await createDatabase();
-    return _database;
+class DatabaseHelper {
+  static Future<Database> database() async {
+    final dbPath = await getDatabasesPath();
+    return openDatabase(join(dbPath, 'musicDB.db'), onCreate: (db, version) {
+      return db.execute("CREATE TABLE $musicEventTABLE ("
+          "$columnID TEXT PRIMARY KEY, "
+          "$columnPlayTime INTEGER, "
+          "$columnTargetTime INTEGER, "
+          "$columnNote TEXT"
+          ")");
+    }, version: 1);
   }
 
-  createDatabase() async {
-    Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, "MusicEventTable.db");
-    var database = await openDatabase(
-      path,
-      version: 1,
-      onCreate: initDB,
+  Future<void> insertEvent(MusicEvent musicEvent) async {
+    final db = await DatabaseHelper.database();
+    db.insert(
+      musicEventTABLE,
+      musicEvent.toDatabaseJson(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
-    return database;
   }
 
-  void initDB(Database database, int version) async {
-    await database.execute("CREATE TABLE $musicEventTABLE ("
-        "$columnId INTEGER PRIMARY KEY, "
-        "$columnPlayTime REAL, "
-        "$columnDate TEXT"
-        "$columnNote TEXT"
-        "$columnCanByOmmited INTEGER"
-        ")");
+  Future<MusicEvent> getData(String id) async {
+    final db = await DatabaseHelper.database();
+    Future<List<Map<String, dynamic>>> queryResult =
+        db.rawQuery('SELECT * from $musicEventTABLE WHERE $columnID ="$id"');
+    MusicEvent event = MusicEvent(id: '', playTime: 0, targetTime: 0, note: '');
+
+    try {
+      await queryResult.then(
+        (value) {
+          event.id = value[0]['id'];
+          event.playTime = value[0]['playTime'];
+          event.targetTime = value[0]['targetTime'];
+          event.note = value[0]['note'];
+        },
+      );
+    } catch (e) {}
+    return event;
   }
 }

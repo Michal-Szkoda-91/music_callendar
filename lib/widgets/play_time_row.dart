@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:music_callendar/main.dart';
+import 'package:provider/provider.dart';
+
+import '../models/music_day_provider.dart';
 
 class PlayTimeRow extends StatefulWidget {
   @override
@@ -16,12 +18,9 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    Provider.of<MusicProvider>(context, listen: false)
+        .setPlayTime(actualPlayTime.inSeconds);
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Column(
@@ -102,8 +101,10 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     Future.delayed(Duration(seconds: 1)).then((value) {
       setState(() {
         actualPlayTime += Duration(seconds: 1);
-        if (_isCounting) incrasePlayTime();
       });
+      Provider.of<MusicProvider>(context, listen: false)
+          .setPlayTime(actualPlayTime.inSeconds);
+      if (_isCounting) incrasePlayTime();
     });
   }
 }

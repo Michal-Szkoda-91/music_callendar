@@ -1,4 +1,8 @@
+import 'package:intl/intl.dart';
+
 import 'package:flutter/material.dart';
+import 'package:music_callendar/databaseHelper/databaseHelper.dart';
+import 'package:music_callendar/models/music_day_event.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../builders/default_builder.dart';
@@ -17,6 +21,13 @@ class CustomTableCalendar extends StatefulWidget {
 class _CustomTableCalendarState extends State<CustomTableCalendar> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
+  DatabaseHelper helper = DatabaseHelper();
+  late MusicEvent event;
+
+  Future<void> getSelectedDayEvent() async {
+    String chosenDate = DateFormat.yMd('pl_PL').format(_selectedDay);
+    event = await helper.getData(chosenDate);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +83,21 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.2,
-        )
+        ),
+        FutureBuilder(
+          future: getSelectedDayEvent(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Text('Loading....');
+              default:
+                if (snapshot.hasError)
+                  return Text('Error: ${snapshot.error}');
+                else
+                  return Text('Result: ${event.id}');
+            }
+          },
+        ),
       ],
     );
   }
