@@ -22,18 +22,20 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
             children: [
               Text(
                 'Cel:',
-                style: _customStyle(),
+                style: _customStyleSmall(),
               ),
               const SizedBox(width: 20),
               GestureDetector(
-                onTap: _showTimePicker,
+                onTap: () {
+                  _showTimePicker(targetPlayTime);
+                },
                 child: Card(
                   color: Theme.of(context).primaryColor,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       '${targetPlayTime.toString().split(".")[0]}',
-                      style: _customStyle(),
+                      style: _customStyleBig(),
                     ),
                   ),
                 ),
@@ -45,14 +47,21 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
     );
   }
 
-  TextStyle _customStyle() {
+  TextStyle _customStyleSmall() {
+    return TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  TextStyle _customStyleBig() {
     return TextStyle(
       fontSize: 25,
       fontWeight: FontWeight.bold,
     );
   }
 
-  void _showTimePicker() {
+  void _showTimePicker(var actualDuration) {
     showDialog(
       context: context,
       builder: (ctx) {
@@ -60,13 +69,13 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
           backgroundColor: Theme.of(context).backgroundColor,
           children: [
             Text(
-              'Ustaw długość dzisiejszej gry',
-              style: _customStyle(),
+              'Ustaw długość gry na instrumencie',
+              style: _customStyleSmall(),
               textAlign: TextAlign.center,
             ),
             CupertinoTimerPicker(
               mode: CupertinoTimerPickerMode.hms,
-              initialTimerDuration: Duration(minutes: 20),
+              initialTimerDuration: actualDuration,
               onTimerDurationChanged: (value) {
                 setState(() {
                   targetPlayTime = value;
@@ -77,7 +86,9 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
                   child: Text(
                     "Zapisz",
                     style: TextStyle(
@@ -88,6 +99,9 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
                 ),
                 TextButton(
                   onPressed: () {
+                    setState(() {
+                      targetPlayTime = actualDuration;
+                    });
                     Navigator.of(ctx).pop();
                   },
                   child: Text(

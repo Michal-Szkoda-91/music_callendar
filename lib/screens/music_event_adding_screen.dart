@@ -43,7 +43,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
               TargetTimeRow(),
               PlayTimeRow(),
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                margin: EdgeInsets.symmetric(horizontal: 20),  
                 child: Container(
                   width: double.infinity,
                   height: 200,
