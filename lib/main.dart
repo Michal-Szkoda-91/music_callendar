@@ -24,6 +24,9 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.grey[300],
         backgroundColor: Colors.purple[50],
         accentColor: Colors.purple[300],
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.purple[300],
+        ),
         textTheme: TextTheme(
           headline1: TextStyle(
             color: Colors.white,
