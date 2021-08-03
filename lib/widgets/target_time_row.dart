@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:music_callendar/models/music_day_provider.dart';
+import 'package:provider/provider.dart';
 
 class TargetTimeRow extends StatefulWidget {
   TargetTimeRow({Key? key}) : super(key: key);
@@ -13,6 +15,8 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<MusicProvider>(context, listen: false)
+        .setTargetTime(targetPlayTime.inSeconds);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 30),
       child: Column(
@@ -88,6 +92,9 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
                 TextButton(
                   onPressed: () {
                     Navigator.of(ctx).pop();
+                    //Providers
+                    Provider.of<MusicProvider>(context, listen: false)
+                        .setTargetTime(targetPlayTime.inSeconds);
                   },
                   child: Text(
                     "Zapisz",

@@ -1,29 +1,26 @@
 class MusicEvent {
-  int id;
-  double playTime;
-  String date;
+  String id;
+  int playTime;
+  int targetTime;
   String note;
-  bool canByOmmited;
 
-  MusicEvent(
-      {required this.id,
-      required this.playTime,
-      required this.date,
-      required this.note,
-      required this.canByOmmited});
+  MusicEvent({
+    required this.id,
+    required this.playTime,
+    required this.targetTime,
+    required this.note,
+  });
 
   factory MusicEvent.fromDatabaseJson(Map<String, dynamic> data) => MusicEvent(
         id: data['id'],
         playTime: data['playTime'],
-        date: data['date'],
+        targetTime: data['targetTime'],
         note: data['note'],
-        canByOmmited: data['canByOmmited'] == 0 ? false : true,
       );
   Map<String, dynamic> toDatabaseJson() => {
         'id': this.id,
         'playTime': this.playTime,
-        'date': this.date,
+        'targetTime': this.targetTime,
         'note': this.note,
-        'canByOmmited': this.canByOmmited == false ? 0 : 1,
       };
 }

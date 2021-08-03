@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:music_callendar/models/music_day_provider.dart';
+import 'package:provider/provider.dart';
 
 class NoteFloatingBar extends StatefulWidget {
   @override
@@ -122,6 +124,11 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                                 setState(() {
                                   _selected = false;
                                 });
+                                Provider.of<MusicProvider>(context,
+                                        listen: false)
+                                    .setNote(
+                                  _noteControler.text,
+                                );
                               },
                               icon: Icon(
                                 Icons.save,
