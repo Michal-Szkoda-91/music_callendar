@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:music_callendar/main.dart';
 
 class PlayTimeRow extends StatefulWidget {
   @override
@@ -6,33 +7,103 @@ class PlayTimeRow extends StatefulWidget {
 }
 
 class _PlayTimeRowState extends State<PlayTimeRow> {
-  double playTime = 0.0;
+  late Duration actualPlayTime;
+  bool _isCounting = false;
+  @override
+  void initState() {
+    super.initState();
+    actualPlayTime = Duration(seconds: 0);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          Text(
-            'Czas gry:',
-            style: _customStyle(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Czas gry:',
+                style: _customStyleSmall(),
+              ),
+              const SizedBox(width: 20),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 2,
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ),
+                ),
+                child: Text(
+                  '${actualPlayTime.toString().split(".")[0]}',
+                  style: _customStyleBig(),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 20),
-          Text(
-            '${playTime.toStringAsFixed(2)}',
-            style: _customStyle(),
-          ),
+          //Temporary buuton to start and stop stoper
+
+          !_isCounting
+              ? IconButton(
+                  onPressed: () {
+                    incrasePlayTime();
+                    setState(() {
+                      _isCounting = !_isCounting;
+                    });
+                  },
+                  alignment: Alignment.center,
+                  icon: Icon(
+                    Icons.play_arrow,
+                    size: 50,
+                  ),
+                )
+              : IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _isCounting = !_isCounting;
+                    });
+                  },
+                  alignment: Alignment.center,
+                  icon: Icon(
+                    Icons.pause,
+                    size: 50,
+                  ),
+                ),
         ],
       ),
     );
   }
 
-  TextStyle _customStyle() {
+  TextStyle _customStyleSmall() {
     return TextStyle(
-      fontSize: 25,
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  TextStyle _customStyleBig() {
+    return TextStyle(
+      fontSize: 35,
       fontWeight: FontWeight.bold,
     );
+  }
+
+  void incrasePlayTime() {
+    Future.delayed(Duration(seconds: 1)).then((value) {
+      setState(() {
+        actualPlayTime += Duration(seconds: 1);
+        if (_isCounting) incrasePlayTime();
+      });
+    });
   }
 }
