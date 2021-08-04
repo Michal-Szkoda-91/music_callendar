@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:community_material_icon/community_material_icon.dart';
+
 import 'package:music_callendar/screens/music_event_adding_screen.dart';
 
 class AddingEventButton extends StatelessWidget {
@@ -11,7 +13,7 @@ class AddingEventButton extends StatelessWidget {
     return TextButton.icon(
       onPressed: () => _navigatorToAddingScreen(context),
       icon: Icon(
-        Icons.headphones,
+        CommunityMaterialIcons.violin,
         size: 30,
       ),
       label: Text("Rozpocznij Grę"),
