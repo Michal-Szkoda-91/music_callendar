@@ -24,9 +24,7 @@ class _MainPageState extends State<MainPage> {
           backgroundColor: Theme.of(context).accentColor,
         ),
         backgroundColor: Theme.of(context).primaryColor,
-        body: Center(
-          child: CustomTableCalendar(),
-        ),
+        body: CustomTableCalendar(),
       ),
     );
   }
