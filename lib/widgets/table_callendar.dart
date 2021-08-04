@@ -101,6 +101,7 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                           : Padding(
                               padding: const EdgeInsets.only(top: 25),
                               child: InfoEventCard(
+                                dateTime: _focusedDay,
                                 musicEvent: event,
                               ),
                             ),

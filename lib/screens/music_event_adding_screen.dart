@@ -11,7 +11,10 @@ import '../widgets/play_time_row.dart';
 
 class MusicEventAddingScreen extends StatefulWidget {
   final DateTime dateTime;
-  MusicEventAddingScreen({Key? key, required this.dateTime}) : super(key: key);
+  final MusicEvent musicEvent;
+  MusicEventAddingScreen(
+      {Key? key, required this.dateTime, required this.musicEvent})
+      : super(key: key);
 
   @override
   _MusicEventAddingScreenState createState() => _MusicEventAddingScreenState();
@@ -28,7 +31,6 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //Providers
     Provider.of<MusicProvider>(context, listen: false).setDate(_appBarDate);
     return SafeArea(
       child: Scaffold(
@@ -53,8 +55,12 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              TargetTimeRow(),
-              PlayTimeRow(),
+              TargetTimeRow(
+                targetTime: widget.musicEvent.targetTime,
+              ),
+              PlayTimeRow(
+                playTime: widget.musicEvent.playTime,
+              ),
               //Tutaj bedzie ekualizer
               Card(
                 margin: EdgeInsets.symmetric(horizontal: 20),
@@ -94,7 +100,9 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
             ],
           ),
         ),
-        floatingActionButton: NoteFloatingBar(),
+        floatingActionButton: NoteFloatingBar(
+          initnote: widget.musicEvent.note,
+        ),
       ),
     );
   }
@@ -128,6 +136,16 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                 ),
                 TextButton(
                   onPressed: () {
+                    var data =
+                        Provider.of<MusicProvider>(context, listen: false);
+                    helper.insertEvent(
+                      MusicEvent(
+                        id: data.temporaryMusicEvent.id,
+                        playTime: data.temporaryMusicEvent.playTime,
+                        targetTime: data.temporaryMusicEvent.targetTime,
+                        note: data.temporaryMusicEvent.note,
+                      ),
+                    );
                     Navigator.of(context).pop();
                     Navigator.of(ctx).pop();
                   },

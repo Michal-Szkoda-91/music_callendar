@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import '../models/music_day_provider.dart';
 
 class PlayTimeRow extends StatefulWidget {
+  final int playTime;
+
+  const PlayTimeRow({Key? key, required this.playTime}) : super(key: key);
   @override
   _PlayTimeRowState createState() => _PlayTimeRowState();
 }
@@ -14,7 +17,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   @override
   void initState() {
     super.initState();
-    actualPlayTime = Duration(seconds: 0);
+    actualPlayTime = Duration(seconds: widget.playTime);
   }
 
   @override
