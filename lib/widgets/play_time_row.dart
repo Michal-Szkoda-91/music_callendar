@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import '../models/music_day_provider.dart';
 
 class PlayTimeRow extends StatefulWidget {
+  final int playTime;
+
+  const PlayTimeRow({Key? key, required this.playTime}) : super(key: key);
   @override
   _PlayTimeRowState createState() => _PlayTimeRowState();
 }
@@ -14,7 +17,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   @override
   void initState() {
     super.initState();
-    actualPlayTime = Duration(seconds: 0);
+    actualPlayTime = Duration(seconds: widget.playTime);
   }
 
   @override
@@ -56,9 +59,11 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
               ? IconButton(
                   onPressed: () {
                     incrasePlayTime();
-                    setState(() {
-                      _isCounting = !_isCounting;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        _isCounting = !_isCounting;
+                      });
+                    }
                   },
                   alignment: Alignment.center,
                   icon: Icon(
@@ -68,9 +73,11 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
                 )
               : IconButton(
                   onPressed: () {
-                    setState(() {
-                      _isCounting = !_isCounting;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        _isCounting = !_isCounting;
+                      });
+                    }
                   },
                   alignment: Alignment.center,
                   icon: Icon(
@@ -99,9 +106,11 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
 
   void incrasePlayTime() {
     Future.delayed(Duration(seconds: 1)).then((value) {
-      setState(() {
-        actualPlayTime += Duration(seconds: 1);
-      });
+      if (mounted) {
+        setState(() {
+          actualPlayTime += Duration(seconds: 1);
+        });
+      }
       Provider.of<MusicProvider>(context, listen: false)
           .setPlayTime(actualPlayTime.inSeconds);
       if (_isCounting) incrasePlayTime();

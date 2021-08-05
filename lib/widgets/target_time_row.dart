@@ -4,14 +4,20 @@ import 'package:music_callendar/models/music_day_provider.dart';
 import 'package:provider/provider.dart';
 
 class TargetTimeRow extends StatefulWidget {
-  TargetTimeRow({Key? key}) : super(key: key);
+  final int targetTime;
 
+  const TargetTimeRow({Key? key, required this.targetTime}) : super(key: key);
   @override
   _TargetTimeRowState createState() => _TargetTimeRowState();
 }
 
 class _TargetTimeRowState extends State<TargetTimeRow> {
-  var targetPlayTime = Duration(minutes: 20);
+  var targetPlayTime;
+  @override
+  void initState() {
+    targetPlayTime = Duration(seconds: widget.targetTime);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

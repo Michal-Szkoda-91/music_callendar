@@ -33,22 +33,8 @@ class DatabaseHelper {
     );
   }
 
-  Future<MusicEvent> getData(String id) async {
+  static Future<List<Map<String, dynamic>>> getData() async {
     final db = await DatabaseHelper.database();
-    Future<List<Map<String, dynamic>>> queryResult =
-        db.rawQuery('SELECT * from $musicEventTABLE WHERE $columnID ="$id"');
-    MusicEvent event = MusicEvent(id: '', playTime: 0, targetTime: 0, note: '');
-
-    try {
-      await queryResult.then(
-        (value) {
-          event.id = value[0]['id'];
-          event.playTime = value[0]['playTime'];
-          event.targetTime = value[0]['targetTime'];
-          event.note = value[0]['note'];
-        },
-      );
-    } catch (e) {}
-    return event;
+    return db.query(musicEventTABLE);
   }
 }

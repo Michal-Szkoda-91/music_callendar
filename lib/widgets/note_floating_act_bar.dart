@@ -3,15 +3,24 @@ import 'package:music_callendar/models/music_day_provider.dart';
 import 'package:provider/provider.dart';
 
 class NoteFloatingBar extends StatefulWidget {
+  final String initnote;
+
+  const NoteFloatingBar({Key? key, required this.initnote}) : super(key: key);
   @override
   _NoteFloatingBarState createState() => _NoteFloatingBarState();
 }
 
 class _NoteFloatingBarState extends State<NoteFloatingBar> {
   bool _selected = false;
-  String note = "";
+  late String note;
   TextEditingController _noteControler = TextEditingController();
   Duration _animationDuration = Duration(milliseconds: 450);
+  @override
+  void initState() {
+    note = widget.initnote;
+    _noteControler.text = note;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
