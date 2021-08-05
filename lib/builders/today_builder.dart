@@ -1,31 +1,49 @@
+import 'package:intl/intl.dart';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../globalMethods/global_methods.dart';
 import '../models/music_day_event.dart';
 import '../widgets/buidler_callendar_container.dart';
 
-class TodayBuilder extends StatelessWidget {
+class TodayBuilder extends StatefulWidget {
   TodayBuilder({
     Key? key,
     required this.day,
   }) : super(key: key);
 
   final DateTime day;
+
+  @override
+  _TodayBuilderState createState() => _TodayBuilderState();
+}
+
+class _TodayBuilderState extends State<TodayBuilder> {
   final GlobalMethods globalMethods = GlobalMethods();
+
+  MusicEvent event = MusicEvent(id: '', playTime: 0, targetTime: 0, note: '');
 
   @override
   Widget build(BuildContext context) {
-    // Face face = globalMethods.setFace(
-    //     targetTime: event.targetTime, playTime: event.playTime);
+    final data = Provider.of<MusicEvents>(context, listen: false);
+    try {
+      event = data.findById(DateFormat.yMd('pl_PL').format(widget.day));
+    } catch (e) {}
+
+    Face face = globalMethods.setFace(
+        targetTime: event.targetTime, playTime: event.playTime);
     return BuilderCallendarContainer(
-      color: Colors.grey,
-      day: day,
-      child: Center(
-          // child: Icon(
-          //   face.icon,
-          //   color: face.color,
-          // ),
-          ),
+      color: Colors.blue,
+      day: widget.day,
+      child: event.id == ''
+          ? Center()
+          : Center(
+              child: Icon(
+                face.icon,
+                color: face.color,
+              ),
+            ),
     );
   }
 }

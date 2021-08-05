@@ -83,26 +83,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                   ),
                 ),
                 onPressed: () {
-                  var data = Provider.of<MusicProvider>(context, listen: false);
-                  helper
-                      .insertEvent(
-                    MusicEvent(
-                      id: data.temporaryMusicEvent.id,
-                      playTime: data.temporaryMusicEvent.playTime,
-                      targetTime: data.temporaryMusicEvent.targetTime,
-                      note: data.temporaryMusicEvent.note,
-                    ),
-                  )
-                      .then((value) {
-                    Provider.of<MusicEvents>(context, listen: false).addEvent(
-                      MusicEvent(
-                        id: data.temporaryMusicEvent.id,
-                        playTime: data.temporaryMusicEvent.playTime,
-                        targetTime: data.temporaryMusicEvent.targetTime,
-                        note: data.temporaryMusicEvent.note,
-                      ),
-                    );
-                  });
+                  _saveResult();
                   Navigator.of(context).pop();
                 },
                 icon: Icon(Icons.save),
@@ -116,6 +97,29 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
         ),
       ),
     );
+  }
+
+  void _saveResult() {
+    var data = Provider.of<MusicProvider>(context, listen: false);
+    helper
+        .insertEvent(
+      MusicEvent(
+        id: data.temporaryMusicEvent.id,
+        playTime: data.temporaryMusicEvent.playTime,
+        targetTime: data.temporaryMusicEvent.targetTime,
+        note: data.temporaryMusicEvent.note,
+      ),
+    )
+        .then((_) {
+      Provider.of<MusicEvents>(context, listen: false).addEvent(
+        MusicEvent(
+          id: data.temporaryMusicEvent.id,
+          playTime: data.temporaryMusicEvent.playTime,
+          targetTime: data.temporaryMusicEvent.targetTime,
+          note: data.temporaryMusicEvent.note,
+        ),
+      );
+    });
   }
 
   void _showExitQuestion(BuildContext context) {
@@ -149,14 +153,26 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                   onPressed: () {
                     var data =
                         Provider.of<MusicProvider>(context, listen: false);
-                    helper.insertEvent(
+                    helper
+                        .insertEvent(
                       MusicEvent(
                         id: data.temporaryMusicEvent.id,
                         playTime: data.temporaryMusicEvent.playTime,
                         targetTime: data.temporaryMusicEvent.targetTime,
                         note: data.temporaryMusicEvent.note,
                       ),
-                    );
+                    )
+                        .then((_) {
+                      Provider.of<MusicEvents>(context, listen: false).addEvent(
+                        MusicEvent(
+                          id: data.temporaryMusicEvent.id,
+                          playTime: data.temporaryMusicEvent.playTime,
+                          targetTime: data.temporaryMusicEvent.targetTime,
+                          note: data.temporaryMusicEvent.note,
+                        ),
+                      );
+                    });
+
                     Navigator.of(context).pop();
                     Navigator.of(ctx).pop();
                   },

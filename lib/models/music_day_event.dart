@@ -46,6 +46,17 @@ class MusicEvents with ChangeNotifier {
   }
 
   void addEvent(MusicEvent event) {
-    _items.add(event);
+    bool _itemExist = false;
+    _items.forEach((element) {
+      if (element.id == event.id) {
+        int index = _items.indexWhere((element) => element.id == event.id);
+        _items[index] = event;
+        _itemExist = true;
+      }
+    });
+    if (!_itemExist) {
+      _items.add(event);
+    }
+    notifyListeners();
   }
 }
