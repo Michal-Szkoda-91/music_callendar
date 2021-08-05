@@ -19,6 +19,9 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
   void initState() {
     note = widget.initnote;
     _noteControler.text = note;
+    Provider.of<MusicProvider>(context, listen: false).setNote(
+      note,
+    );
     super.initState();
   }
 

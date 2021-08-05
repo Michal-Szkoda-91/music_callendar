@@ -43,7 +43,9 @@ class BuilderCallendarContainer extends StatelessWidget {
               ),
             ),
           ),
+          Spacer(),
           child,
+          Spacer(),
         ],
       ),
     );

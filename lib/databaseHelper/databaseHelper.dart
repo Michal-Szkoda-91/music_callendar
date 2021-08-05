@@ -37,4 +37,9 @@ class DatabaseHelper {
     final db = await DatabaseHelper.database();
     return db.query(musicEventTABLE);
   }
+
+  Future<void> deleteEvent(String id) async {
+    final db = await DatabaseHelper.database();
+    db.delete(musicEventTABLE, where: "id = ?", whereArgs: [id]);
+  }
 }

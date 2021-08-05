@@ -43,6 +43,7 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<MusicEvents>(context, listen: false);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -105,14 +106,15 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                 ? Padding(
                     padding: const EdgeInsets.only(top: 25),
                     child: AddingEventButton(
-                      dateTime: _selectedDay,
+                      dateTime: _focusedDay,
                     ),
                   )
                 : Padding(
                     padding: const EdgeInsets.only(top: 25),
                     child: InfoEventCard(
                       dateTime: _focusedDay,
-                      musicEvent: event,
+                      musicEvent: data.findById(
+                          DateFormat.yMd('pl_PL').format(_selectedDay)),
                     ),
                   ),
           ),
