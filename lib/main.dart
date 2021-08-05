@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:music_callendar/models/music_day_event.dart';
 import 'package:provider/provider.dart';
 
 import 'package:music_callendar/models/music_day_provider.dart';
@@ -12,8 +13,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: MusicProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MusicProvider()),
+        ChangeNotifierProvider(create: (_) => MusicEvents()),
+      ],
       child: MaterialApp(
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,

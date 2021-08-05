@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +24,21 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
   DatabaseHelper helper = DatabaseHelper();
-  late MusicEvent event;
+  late MusicEvent event =
+      MusicEvent(id: '', playTime: 0, targetTime: 0, note: '');
 
-  Future<void> getSelectedDayEvent() async {
-    String chosenDate = DateFormat.yMd('pl_PL').format(_selectedDay);
-    event = await helper.getData(chosenDate);
+  void getEvents(String id) async {
+    event = MusicEvent(id: '', playTime: 0, targetTime: 0, note: '');
+    try {
+      final data = Provider.of<MusicEvents>(context, listen: false);
+      event = data.findById(id);
+    } catch (e) {}
+  }
+
+  @override
+  void initState() {
+    getEvents(DateFormat.yMd('pl_PL').format(_selectedDay));
+    super.initState();
   }
 
   @override
@@ -60,6 +71,7 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
               return isSameDay(_selectedDay, day);
             },
             onDaySelected: (selectedDay, focusedDay) {
+              getEvents(DateFormat.yMd('pl_PL').format(selectedDay));
               setState(() {
                 _selectedDay = selectedDay;
                 _focusedDay = focusedDay;
@@ -67,47 +79,42 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
             },
             calendarBuilders: CalendarBuilders(
               selectedBuilder: (context, day, today) {
-                return SelectedDayBuilder(day: day);
+                return SelectedDayBuilder(
+                  day: day,
+                );
               },
               todayBuilder: (context, day, today) {
-                return TodayBuilder(day: day);
+                return TodayBuilder(
+                  day: day,
+                );
               },
               holidayBuilder: (context, day, today) {
-                return HolidayBuilder(day: day);
+                return HolidayBuilder(
+                  day: day,
+                );
               },
               defaultBuilder: (context, day, today) {
-                return DefaultBuilder(day: day);
+                return DefaultBuilder(
+                  day: day,
+                );
               },
             ),
           ),
-          FutureBuilder(
-            future: getSelectedDayEvent(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return Center();
-                default:
-                  if (snapshot.hasError)
-                    return Text('Error: ${snapshot.error}');
-                  else
-                    return Container(
-                      child: event.id == ''
-                          ? Padding(
-                              padding: const EdgeInsets.only(top: 25),
-                              child: AddingEventButton(
-                                dateTime: _focusedDay,
-                              ),
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.only(top: 25),
-                              child: InfoEventCard(
-                                dateTime: _focusedDay,
-                                musicEvent: event,
-                              ),
-                            ),
-                    );
-              }
-            },
+          Container(
+            child: event.id == ''
+                ? Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: AddingEventButton(
+                      dateTime: _selectedDay,
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(top: 25),
+                    child: InfoEventCard(
+                      dateTime: _focusedDay,
+                      musicEvent: event,
+                    ),
+                  ),
           ),
         ],
       ),

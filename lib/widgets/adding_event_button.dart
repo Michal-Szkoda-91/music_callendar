@@ -34,9 +34,9 @@ class AddingEventButton extends StatelessWidget {
           dateTime: dateTime,
           musicEvent: MusicEvent(
             id: '',
-            playTime: 1100,
+            playTime: 0,
             targetTime: 1200,
-            note: 'dowolne notatki, tylko sprawdzam czy dziala',
+            note: '',
           ),
         ),
       ),

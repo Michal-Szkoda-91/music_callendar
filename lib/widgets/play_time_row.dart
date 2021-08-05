@@ -59,9 +59,11 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
               ? IconButton(
                   onPressed: () {
                     incrasePlayTime();
-                    setState(() {
-                      _isCounting = !_isCounting;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        _isCounting = !_isCounting;
+                      });
+                    }
                   },
                   alignment: Alignment.center,
                   icon: Icon(
@@ -71,9 +73,11 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
                 )
               : IconButton(
                   onPressed: () {
-                    setState(() {
-                      _isCounting = !_isCounting;
-                    });
+                    if (mounted) {
+                      setState(() {
+                        _isCounting = !_isCounting;
+                      });
+                    }
                   },
                   alignment: Alignment.center,
                   icon: Icon(
@@ -102,9 +106,11 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
 
   void incrasePlayTime() {
     Future.delayed(Duration(seconds: 1)).then((value) {
-      setState(() {
-        actualPlayTime += Duration(seconds: 1);
-      });
+      if (mounted) {
+        setState(() {
+          actualPlayTime += Duration(seconds: 1);
+        });
+      }
       Provider.of<MusicProvider>(context, listen: false)
           .setPlayTime(actualPlayTime.inSeconds);
       if (_isCounting) incrasePlayTime();

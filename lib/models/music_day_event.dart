@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:music_callendar/databaseHelper/databaseHelper.dart';
+
 class MusicEvent {
   String id;
   int playTime;
@@ -11,16 +14,38 @@ class MusicEvent {
     required this.note,
   });
 
-  factory MusicEvent.fromDatabaseJson(Map<String, dynamic> data) => MusicEvent(
-        id: data['id'],
-        playTime: data['playTime'],
-        targetTime: data['targetTime'],
-        note: data['note'],
-      );
   Map<String, dynamic> toDatabaseJson() => {
         'id': this.id,
         'playTime': this.playTime,
         'targetTime': this.targetTime,
         'note': this.note,
       };
+}
+
+class MusicEvents with ChangeNotifier {
+  List<MusicEvent> _items = [];
+
+  List<MusicEvent> get items {
+    return [..._items];
+  }
+
+  MusicEvent findById(String id) {
+    return _items.firstWhere((element) => element.id == id);
+  }
+
+  Future<void> fetchAndSetEvents() async {
+    final data = await DatabaseHelper.getData();
+    _items = data
+        .map((item) => MusicEvent(
+            id: item['id'],
+            playTime: item['playTime'],
+            targetTime: item['targetTime'],
+            note: item['note']))
+        .toList();
+    notifyListeners();
+  }
+
+  void addEvent(MusicEvent event) {
+    _items.add(event);
+  }
 }
