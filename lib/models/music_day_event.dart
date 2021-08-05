@@ -30,7 +30,11 @@ class MusicEvents with ChangeNotifier {
   }
 
   MusicEvent findById(String id) {
-    return _items.firstWhere((element) => element.id == id);
+    MusicEvent event = MusicEvent(id: '', playTime: 0, targetTime: 0, note: '');
+    try {
+      event = _items.firstWhere((element) => element.id == id);
+    } catch (e) {}
+    return event;
   }
 
   Future<void> fetchAndSetEvents() async {
@@ -57,6 +61,17 @@ class MusicEvents with ChangeNotifier {
     if (!_itemExist) {
       _items.add(event);
     }
+    notifyListeners();
+  }
+
+  void deleteEvent(String id) {
+    int index = 0;
+    _items.forEach((element) {
+      if (element.id == id) {
+        index = _items.indexWhere((element) => element.id == id);
+      }
+    });
+    _items.removeAt(index);
     notifyListeners();
   }
 }

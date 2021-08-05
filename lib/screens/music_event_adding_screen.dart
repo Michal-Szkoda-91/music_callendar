@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:music_callendar/databaseHelper/databaseHelper.dart';
-import 'package:music_callendar/models/music_day_event.dart';
 import 'package:provider/provider.dart';
 
+import '../databaseHelper/databaseHelper.dart';
+import '../models/music_day_event.dart';
+import '../widgets/delete_button.dart';
+import '../widgets/save_button.dart';
 import '../models/music_day_provider.dart';
 import '../widgets/target_time_row.dart';
 import '../widgets/note_floating_act_bar.dart';
@@ -33,67 +35,59 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
   Widget build(BuildContext context) {
     Provider.of<MusicProvider>(context, listen: false).setDate(_appBarDate);
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Theme.of(context).textTheme.headline1!.color,
+      child: WillPopScope(
+        onWillPop: () async {
+          _showExitQuestion(context);
+          return true;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Theme.of(context).textTheme.headline1!.color,
+              ),
+              onPressed: () {
+                _showExitQuestion(context);
+              },
             ),
-            onPressed: () {
-              _showExitQuestion(context);
-            },
+            title: Text(
+              _appBarDate,
+              style: TextStyle(
+                color: Theme.of(context).textTheme.headline1!.color,
+              ),
+            ),
+            backgroundColor: Theme.of(context).accentColor,
           ),
-          title: Text(
-            _appBarDate,
-            style: TextStyle(
-              color: Theme.of(context).textTheme.headline1!.color,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                TargetTimeRow(
+                  targetTime: widget.musicEvent.targetTime,
+                ),
+                PlayTimeRow(
+                  playTime: widget.musicEvent.playTime,
+                ),
+                //Tutaj bedzie ekualizer
+                Card(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    width: double.infinity,
+                    height: 200,
+                  ),
+                  color: Theme.of(context).primaryColor,
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                SaveButton(function: _saveResult),
+                DeleteButton(id: _appBarDate, previousContext: context),
+              ],
             ),
           ),
-          backgroundColor: Theme.of(context).accentColor,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              TargetTimeRow(
-                targetTime: widget.musicEvent.targetTime,
-              ),
-              PlayTimeRow(
-                playTime: widget.musicEvent.playTime,
-              ),
-              //Tutaj bedzie ekualizer
-              Card(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: Container(
-                  width: double.infinity,
-                  height: 200,
-                ),
-                color: Theme.of(context).primaryColor,
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              ElevatedButton.icon(
-                style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.all<Color>(
-                    Theme.of(context).primaryColor,
-                  ),
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Theme.of(context).accentColor,
-                  ),
-                ),
-                onPressed: () {
-                  _saveResult();
-                  Navigator.of(context).pop();
-                },
-                icon: Icon(Icons.save),
-                label: Text("Zapisz wynik"),
-              ),
-            ],
+          floatingActionButton: NoteFloatingBar(
+            initnote: widget.musicEvent.note,
           ),
-        ),
-        floatingActionButton: NoteFloatingBar(
-          initnote: widget.musicEvent.note,
         ),
       ),
     );

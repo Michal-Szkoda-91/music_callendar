@@ -7,9 +7,12 @@ class InfoEventCard extends StatelessWidget {
   final DateTime dateTime;
   final MusicEvent musicEvent;
 
-  const InfoEventCard(
-      {Key? key, required this.musicEvent, required this.dateTime})
-      : super(key: key);
+  const InfoEventCard({
+    Key? key,
+    required this.musicEvent,
+    required this.dateTime,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var targetPlayTime = Duration(seconds: musicEvent.targetTime);
@@ -44,7 +47,7 @@ class InfoEventCard extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     stops: [0.1, 1],
                     colors: [
-                      Colors.green,
+                      chooseColor(musicEvent.targetTime, musicEvent.playTime),
                       Theme.of(context).backgroundColor,
                     ],
                   ),
@@ -67,7 +70,7 @@ class InfoEventCard extends StatelessWidget {
               Text(
                 "${playTime.toString().split(".")[0]} / ${targetPlayTime.toString().split(".")[0]}",
                 style: TextStyle(
-                  fontSize: 17,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -124,5 +127,17 @@ class InfoEventCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color chooseColor(int target, int play) {
+    double proporcion = target / play;
+
+    if (proporcion > 3.3) {
+      return Colors.red;
+    } else if (proporcion <= 3.3 && proporcion >= 1.2) {
+      return Colors.orange;
+    } else {
+      return Colors.green;
+    }
   }
 }
