@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:wakelock/wakelock.dart';
 
 import '../databaseHelper/databaseHelper.dart';
 import '../models/music_day_event.dart';
@@ -33,6 +34,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Wakelock.enable();
     Provider.of<MusicProvider>(context, listen: false).setDate(_appBarDate);
     return SafeArea(
       child: WillPopScope(
@@ -81,7 +83,9 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                   height: 40,
                 ),
                 SaveButton(function: _saveResult),
-                DeleteButton(id: _appBarDate, previousContext: context),
+                widget.musicEvent.id == ''
+                    ? Center()
+                    : DeleteButton(id: _appBarDate, previousContext: context),
               ],
             ),
           ),
@@ -114,6 +118,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
         ),
       );
     });
+    Wakelock.disable();
   }
 
   void _showExitQuestion(BuildContext context) {
@@ -132,6 +137,8 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
               children: [
                 TextButton(
                   onPressed: () {
+                    Wakelock.disable();
+
                     Navigator.of(context).pop();
                     Navigator.of(ctx).pop();
                   },
@@ -166,7 +173,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                         ),
                       );
                     });
-
+                    Wakelock.disable();
                     Navigator.of(context).pop();
                     Navigator.of(ctx).pop();
                   },

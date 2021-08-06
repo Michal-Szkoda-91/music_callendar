@@ -36,6 +36,8 @@ dependencies:
   path_provider: ^2.0.2
   provider: ^5.0.0
   community_material_icon: ^5.9.55
+  wakelock: ^0.5.3+3
+
 
 
 dev_dependencies:
