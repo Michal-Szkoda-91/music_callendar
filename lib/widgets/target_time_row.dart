@@ -59,7 +59,7 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
 
   TextStyle _customStyleSmall() {
     return TextStyle(
-      fontSize: 20,
+      fontSize: 16,
       fontWeight: FontWeight.w400,
     );
   }

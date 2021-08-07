@@ -69,15 +69,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                 ),
                 PlayTimeRow(
                   playTime: widget.musicEvent.playTime,
-                ),
-                //Tutaj bedzie ekualizer
-                Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    width: double.infinity,
-                    height: 200,
-                  ),
-                  color: Theme.of(context).primaryColor,
+                  generalTime: widget.musicEvent.generalTime,
                 ),
                 SizedBox(
                   height: 40,
@@ -104,6 +96,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
       MusicEvent(
         id: data.temporaryMusicEvent.id,
         playTime: data.temporaryMusicEvent.playTime,
+        generalTime: data.temporaryMusicEvent.generalTime,
         targetTime: data.temporaryMusicEvent.targetTime,
         note: data.temporaryMusicEvent.note,
       ),
@@ -113,6 +106,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
         MusicEvent(
           id: data.temporaryMusicEvent.id,
           playTime: data.temporaryMusicEvent.playTime,
+          generalTime: data.temporaryMusicEvent.generalTime,
           targetTime: data.temporaryMusicEvent.targetTime,
           note: data.temporaryMusicEvent.note,
         ),
@@ -159,6 +153,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                       MusicEvent(
                         id: data.temporaryMusicEvent.id,
                         playTime: data.temporaryMusicEvent.playTime,
+                        generalTime: data.temporaryMusicEvent.generalTime,
                         targetTime: data.temporaryMusicEvent.targetTime,
                         note: data.temporaryMusicEvent.note,
                       ),
@@ -168,6 +163,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                         MusicEvent(
                           id: data.temporaryMusicEvent.id,
                           playTime: data.temporaryMusicEvent.playTime,
+                          generalTime: data.temporaryMusicEvent.generalTime,
                           targetTime: data.temporaryMusicEvent.targetTime,
                           note: data.temporaryMusicEvent.note,
                         ),

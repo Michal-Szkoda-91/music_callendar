@@ -22,7 +22,8 @@ class HolidayBuilder extends StatefulWidget {
 class _HolidayBuilderState extends State<HolidayBuilder> {
   final GlobalMethods globalMethods = GlobalMethods();
 
-  MusicEvent event = MusicEvent(id: '', playTime: 0, targetTime: 0, note: '');
+  MusicEvent event =
+      MusicEvent(id: '', playTime: 0, generalTime: 0, targetTime: 0, note: '');
 
   @override
   Widget build(BuildContext context) {

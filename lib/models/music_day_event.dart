@@ -4,12 +4,14 @@ import 'package:music_callendar/databaseHelper/databaseHelper.dart';
 class MusicEvent {
   String id;
   int playTime;
+  int generalTime;
   int targetTime;
   String note;
 
   MusicEvent({
     required this.id,
     required this.playTime,
+    required this.generalTime,
     required this.targetTime,
     required this.note,
   });
@@ -30,7 +32,8 @@ class MusicEvents with ChangeNotifier {
   }
 
   MusicEvent findById(String id) {
-    MusicEvent event = MusicEvent(id: '', playTime: 0, targetTime: 0, note: '');
+    MusicEvent event = MusicEvent(
+        id: '', playTime: 0, targetTime: 0, generalTime: 0, note: '');
     try {
       event = _items.firstWhere((element) => element.id == id);
     } catch (e) {}
@@ -40,11 +43,14 @@ class MusicEvents with ChangeNotifier {
   Future<void> fetchAndSetEvents() async {
     final data = await DatabaseHelper.getData();
     _items = data
-        .map((item) => MusicEvent(
-            id: item['id'],
-            playTime: item['playTime'],
-            targetTime: item['targetTime'],
-            note: item['note']))
+        .map(
+          (item) => MusicEvent(
+              id: item['id'],
+              playTime: item['playTime'],
+              generalTime: item['generalTime'],
+              targetTime: item['targetTime'],
+              note: item['note']),
+        )
         .toList();
     notifyListeners();
   }

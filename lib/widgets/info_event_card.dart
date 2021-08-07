@@ -121,6 +121,7 @@ class InfoEventCard extends StatelessWidget {
           musicEvent: MusicEvent(
             id: musicEvent.id,
             playTime: musicEvent.playTime,
+            generalTime: musicEvent.generalTime,
             targetTime: musicEvent.targetTime,
             note: musicEvent.note,
           ),

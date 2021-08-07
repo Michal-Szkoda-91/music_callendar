@@ -8,6 +8,7 @@ final musicEventTABLE = 'MusicEventTable';
 
 final String columnID = 'id';
 final String columnPlayTime = 'playTime';
+final String columnGenralTime = 'generalTime';
 final String columnTargetTime = 'targetTime';
 final String columnNote = 'note';
 
@@ -19,6 +20,7 @@ class DatabaseHelper {
           "$columnID TEXT PRIMARY KEY, "
           "$columnPlayTime INTEGER, "
           "$columnTargetTime INTEGER, "
+          "$columnGenralTime INTEGER, "
           "$columnNote TEXT"
           ")");
     }, version: 1);
