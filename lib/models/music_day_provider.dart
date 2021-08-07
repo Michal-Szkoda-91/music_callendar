@@ -5,6 +5,7 @@ class MusicProvider with ChangeNotifier {
   MusicEvent _temporaryEvent = MusicEvent(
     id: '',
     playTime: 0,
+    generalTime: 0,
     targetTime: 1200,
     note: '',
   );
@@ -19,6 +20,10 @@ class MusicProvider with ChangeNotifier {
 
   void setTargetTime(int time) {
     _temporaryEvent.targetTime = time;
+  }
+
+  void setGeneralTime(int time) {
+    _temporaryEvent.generalTime = time;
   }
 
   void setDate(String id) {

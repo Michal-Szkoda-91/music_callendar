@@ -25,10 +25,11 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
   DateTime _focusedDay = DateTime.now();
   DatabaseHelper helper = DatabaseHelper();
   late MusicEvent event =
-      MusicEvent(id: '', playTime: 0, targetTime: 0, note: '');
+      MusicEvent(id: '', playTime: 0, generalTime: 0, targetTime: 0, note: '');
 
   void getEvents(String id) async {
-    event = MusicEvent(id: '', playTime: 0, targetTime: 0, note: '');
+    event = MusicEvent(
+        id: '', playTime: 0, generalTime: 0, targetTime: 0, note: '');
     try {
       final data = Provider.of<MusicEvents>(context, listen: false);
       event = data.findById(id);
@@ -102,7 +103,10 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
             ),
           ),
           Container(
-            child: event.id == ''
+            child: data
+                        .findById(DateFormat.yMd('pl_PL').format(_selectedDay))
+                        .id ==
+                    ''
                 ? Padding(
                     padding: const EdgeInsets.only(top: 25),
                     child: AddingEventButton(

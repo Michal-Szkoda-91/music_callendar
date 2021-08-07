@@ -37,6 +37,8 @@ dependencies:
   provider: ^5.0.0
   community_material_icon: ^5.9.55
   wakelock: ^0.5.3+3
+  record: ^3.0.0
+
 
 
 
