@@ -5,6 +5,7 @@
 // import '../models/music_day_provider.dart';
 import 'dart:async';
 
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:music_callendar/models/music_day_provider.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,9 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   bool _isListen = false;
   final _audioRecorder = Record();
   Amplitude? _amplitude;
+  double _equalizeSize = 100;
+
+  Timer? _ampTimer;
 
   @override
   void initState() {
@@ -39,6 +43,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   @override
   void dispose() {
     _audioRecorder.dispose();
+    _ampTimer?.cancel();
     super.dispose();
   }
 
@@ -46,6 +51,8 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   Widget build(BuildContext context) {
     Provider.of<MusicProvider>(context, listen: false)
         .setPlayTime(actualPlayTime.inSeconds);
+    Provider.of<MusicProvider>(context, listen: false)
+        .setGeneralTime(generalPlayTime.inSeconds);
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Column(
@@ -80,6 +87,12 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(
+                'Całkowity czas:',
+                style: _customStyleSmall(),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(width: 20),
               !_isListen
                   ? InkWell(
                       child: Icon(Icons.play_arrow,
@@ -98,20 +111,34 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
               ),
             ],
           ),
-          const SizedBox(height: 15),
-          Card(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-              width: double.infinity,
-              height: 200,
+          Container(
+            width: double.infinity,
+            height: 260,
+            alignment: Alignment.center,
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 150),
+              height: _equalizeSize,
+              width: _equalizeSize,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  stops: [0.8, 1],
+                  colors: [
+                    Colors.red,
+                    Colors.white,
+                  ],
+                ),
+              ),
+              child: Center(
+                child: Icon(
+                  !_isListen
+                      ? CommunityMaterialIcons.music_off
+                      : CommunityMaterialIcons.music,
+                  color: Colors.white,
+                ),
+              ),
             ),
-            color: Theme.of(context).primaryColor,
           ),
-          if (_amplitude != null) ...[
-            const SizedBox(height: 40),
-            Text('Current: ${_amplitude?.current ?? 0.0}'),
-            Text('Max: ${_amplitude?.max ?? 0.0}'),
-          ],
         ],
       ),
     );
@@ -148,7 +175,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         generalPlayTime += Duration(seconds: 1);
       });
       Provider.of<MusicProvider>(context, listen: false)
-          .setPlayTime(generalPlayTime.inSeconds);
+          .setGeneralTime(generalPlayTime.inSeconds);
       if (_isListen) incraseGeneralTime();
     });
   }
@@ -162,7 +189,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
           _isListen = isRecording;
         });
         incraseGeneralTime();
-        print("START_______SLUCHANIE");
+        _setApmTimer();
       }
     } catch (e) {
       print(e);
@@ -171,6 +198,22 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
 
   Future<void> _stopListen() async {
     _audioRecorder.stop();
+    _ampTimer?.cancel();
     setState(() => _isListen = false);
+  }
+
+  void _setApmTimer() {
+    _ampTimer?.cancel();
+    _ampTimer =
+        Timer.periodic(const Duration(milliseconds: 150), (Timer t) async {
+      _amplitude = await _audioRecorder.getAmplitude();
+      setState(() {
+        if (_amplitude!.current > -40.0 && _amplitude != null) {
+          _equalizeSize = 250 - (_amplitude!.current * -4);
+        } else {
+          _equalizeSize = 100;
+        }
+      });
+    });
   }
 }
