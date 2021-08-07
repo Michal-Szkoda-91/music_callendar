@@ -26,9 +26,12 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   late Duration actualPlayTime;
   late Duration generalPlayTime;
   bool _isListen = false;
+  bool _isRecording = false;
   final _audioRecorder = Record();
   Amplitude? _amplitude;
   double _equalizeSize = 100;
+  int start_counter = 0;
+  int stop_counter = 0;
 
   Timer? _ampTimer;
 
@@ -37,6 +40,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     actualPlayTime = Duration(seconds: widget.playTime);
     generalPlayTime = Duration(seconds: widget.generalTime);
     _isListen = false;
+    _isRecording = false;
     super.initState();
   }
 
@@ -107,7 +111,9 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
               const SizedBox(width: 20),
               Text(
                 '${generalPlayTime.toString().split(".")[0]}',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                    fontSize: 20,
+                    color: _isListen ? Colors.black : Colors.grey[350]),
               ),
             ],
           ),
@@ -122,19 +128,20 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  stops: [0.8, 1],
+                  stops: [_isRecording ? 0.8 : 0.3, 1],
                   colors: [
-                    Colors.red,
+                    _isRecording ? Colors.red : Colors.redAccent,
                     Colors.white,
                   ],
                 ),
               ),
               child: Center(
                 child: Icon(
-                  !_isListen
+                  !_isRecording
                       ? CommunityMaterialIcons.music_off
                       : CommunityMaterialIcons.music,
                   color: Colors.white,
+                  size: 35,
                 ),
               ),
             ),
@@ -155,6 +162,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     return TextStyle(
       fontSize: 35,
       fontWeight: FontWeight.bold,
+      color: _isRecording ? Colors.black : Colors.grey[350],
     );
   }
 
@@ -165,7 +173,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
       });
       Provider.of<MusicProvider>(context, listen: false)
           .setPlayTime(actualPlayTime.inSeconds);
-      if (_isListen) incrasePlayTime();
+      if (_isRecording) incrasePlayTime();
     });
   }
 
@@ -199,7 +207,11 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   Future<void> _stopListen() async {
     _audioRecorder.stop();
     _ampTimer?.cancel();
-    setState(() => _isListen = false);
+    setState(() {
+      _isListen = false;
+      _isRecording = false;
+      _equalizeSize = 100;
+    });
   }
 
   void _setApmTimer() {
@@ -208,10 +220,40 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         Timer.periodic(const Duration(milliseconds: 150), (Timer t) async {
       _amplitude = await _audioRecorder.getAmplitude();
       setState(() {
-        if (_amplitude!.current > -40.0 && _amplitude != null) {
+        //animation controler
+        if (_amplitude != null && _isRecording) {
           _equalizeSize = 250 - (_amplitude!.current * -4);
         } else {
           _equalizeSize = 100;
+        }
+        //timer controler
+        if (_amplitude != null && _amplitude!.current > -44 && !_isRecording) {
+          setState(() {
+            stop_counter = 0;
+          });
+          Future.delayed(Duration(seconds: 1)).then((value) {
+            start_counter++;
+          });
+          if (start_counter >= 3) {
+            setState(() {
+              _isRecording = true;
+              incrasePlayTime();
+            });
+          }
+        } else if (_amplitude != null &&
+            _amplitude!.current < -44 &&
+            _isRecording) {
+          setState(() {
+            start_counter = 0;
+          });
+          Future.delayed(Duration(seconds: 1)).then((value) {
+            stop_counter++;
+          });
+          if (stop_counter >= 3) {
+            setState(() {
+              _isRecording = false;
+            });
+          }
         }
       });
     });
