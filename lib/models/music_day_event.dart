@@ -19,6 +19,7 @@ class MusicEvent {
   Map<String, dynamic> toDatabaseJson() => {
         'id': this.id,
         'playTime': this.playTime,
+        'generalTime': this.generalTime,
         'targetTime': this.targetTime,
         'note': this.note,
       };

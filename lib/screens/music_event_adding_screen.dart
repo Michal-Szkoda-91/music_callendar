@@ -71,9 +71,6 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                   playTime: widget.musicEvent.playTime,
                   generalTime: widget.musicEvent.generalTime,
                 ),
-                SizedBox(
-                  height: 40,
-                ),
                 SaveButton(function: _saveResult),
                 widget.musicEvent.id == ''
                     ? Center()
@@ -132,7 +129,6 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                 TextButton(
                   onPressed: () {
                     Wakelock.disable();
-
                     Navigator.of(context).pop();
                     Navigator.of(ctx).pop();
                   },
