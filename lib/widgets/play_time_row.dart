@@ -30,10 +30,12 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   final _audioRecorder = Record();
   Amplitude? _amplitude;
   double _equalizeSize = 100;
-  int start_counter = 0;
-  int stop_counter = 0;
+  int _silenceCounter = 0;
+  int _recordCounter = 0;
 
   Timer? _ampTimer;
+  Timer? _durationStopTimer;
+  Timer? _durationStartTimer;
 
   @override
   void initState() {
@@ -48,6 +50,8 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   void dispose() {
     _audioRecorder.dispose();
     _ampTimer?.cancel();
+    _durationStopTimer?.cancel();
+    _durationStartTimer?.cancel();
     super.dispose();
   }
 
@@ -169,11 +173,13 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   void incrasePlayTime() {
     Future.delayed(Duration(seconds: 1)).then((value) {
       setState(() {
-        actualPlayTime += Duration(seconds: 1);
+        if (_isRecording) {
+          actualPlayTime += Duration(seconds: 1);
+        }
       });
       Provider.of<MusicProvider>(context, listen: false)
           .setPlayTime(actualPlayTime.inSeconds);
-      if (_isRecording) incrasePlayTime();
+      if (_isListen) incrasePlayTime();
     });
   }
 
@@ -181,6 +187,13 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     Future.delayed(Duration(seconds: 1)).then((value) {
       setState(() {
         generalPlayTime += Duration(seconds: 1);
+        if (_amplitude != null && _amplitude!.current < -40) {
+          _silenceCounter++;
+          _recordCounter = 0;
+        } else {
+          _recordCounter++;
+          _silenceCounter = 0;
+        }
       });
       Provider.of<MusicProvider>(context, listen: false)
           .setGeneralTime(generalPlayTime.inSeconds);
@@ -197,7 +210,10 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
           _isListen = isRecording;
         });
         incraseGeneralTime();
+        incrasePlayTime();
         _setApmTimer();
+        _setDurationStopTimer();
+        _setDurationStartTimer();
       }
     } catch (e) {
       print(e);
@@ -207,10 +223,14 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   Future<void> _stopListen() async {
     _audioRecorder.stop();
     _ampTimer?.cancel();
+    _durationStartTimer?.cancel();
+    _durationStopTimer?.cancel();
     setState(() {
       _isListen = false;
       _isRecording = false;
       _equalizeSize = 100;
+      _silenceCounter = 0;
+      _recordCounter = 0;
     });
   }
 
@@ -221,41 +241,38 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
       _amplitude = await _audioRecorder.getAmplitude();
       setState(() {
         //animation controler
-        if (_amplitude != null && _isRecording) {
+        if (_amplitude != null && _isRecording && _amplitude!.current > -40) {
           _equalizeSize = 250 - (_amplitude!.current * -4);
         } else {
           _equalizeSize = 100;
         }
-        //timer controler
-        if (_amplitude != null && _amplitude!.current > -44 && !_isRecording) {
-          setState(() {
-            stop_counter = 0;
-          });
-          Future.delayed(Duration(seconds: 1)).then((value) {
-            start_counter++;
-          });
-          if (start_counter >= 3) {
-            setState(() {
-              _isRecording = true;
-              incrasePlayTime();
-            });
-          }
-        } else if (_amplitude != null &&
-            _amplitude!.current < -44 &&
-            _isRecording) {
-          setState(() {
-            start_counter = 0;
-          });
-          Future.delayed(Duration(seconds: 1)).then((value) {
-            stop_counter++;
-          });
-          if (stop_counter >= 3) {
-            setState(() {
-              _isRecording = false;
-            });
-          }
-        }
       });
+    });
+  }
+
+  void _setDurationStopTimer() {
+    _durationStopTimer?.cancel();
+    // print("________Silence$_silenceCounter");
+    _durationStopTimer = Timer.periodic(Duration(seconds: 3), (Timer t) async {
+      if (_silenceCounter > 3) {
+        setState(() {
+          _isRecording = false;
+        });
+      }
+      _setDurationStopTimer();
+    });
+  }
+
+  void _setDurationStartTimer() {
+    // print("_______Recording$_recordCounter");
+    _durationStartTimer?.cancel();
+    _durationStartTimer = Timer.periodic(Duration(seconds: 2), (Timer t) async {
+      if (_recordCounter > 2) {
+        setState(() {
+          _isRecording = true;
+        });
+      }
+      _setDurationStartTimer();
     });
   }
 }
