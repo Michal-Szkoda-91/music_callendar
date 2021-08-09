@@ -29,9 +29,10 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   bool _isRecording = false;
   final _audioRecorder = Record();
   Amplitude? _amplitude;
-  double _equalizeSize = 100;
-  int _silenceCounter = 0;
-  int _recordCounter = 0;
+  double _equalizeSize = 80;
+  double _silenceCounter = 0;
+  double _recordCounter = 0;
+  late double _sensitive;
 
   Timer? _ampTimer;
   Timer? _durationStopTimer;
@@ -43,6 +44,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     generalPlayTime = Duration(seconds: widget.generalTime);
     _isListen = false;
     _isRecording = false;
+
     super.initState();
   }
 
@@ -61,6 +63,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         .setPlayTime(actualPlayTime.inSeconds);
     Provider.of<MusicProvider>(context, listen: false)
         .setGeneralTime(generalPlayTime.inSeconds);
+    _sensitive = Provider.of<MusicProvider>(context, listen: false).sensitive;
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Column(
@@ -132,7 +135,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  stops: [_isRecording ? 0.8 : 0.3, 1],
+                  stops: [_isRecording ? 0.9 : 0.0, 1],
                   colors: [
                     _isRecording ? Colors.red : Colors.redAccent,
                     Colors.white,
@@ -187,13 +190,6 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     Future.delayed(Duration(seconds: 1)).then((value) {
       setState(() {
         generalPlayTime += Duration(seconds: 1);
-        if (_amplitude != null && _amplitude!.current < -40) {
-          _silenceCounter++;
-          _recordCounter = 0;
-        } else {
-          _recordCounter++;
-          _silenceCounter = 0;
-        }
       });
       Provider.of<MusicProvider>(context, listen: false)
           .setGeneralTime(generalPlayTime.inSeconds);
@@ -241,12 +237,28 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
       _amplitude = await _audioRecorder.getAmplitude();
       setState(() {
         //animation controler
-        if (_amplitude != null && _isRecording && _amplitude!.current > -40) {
+        if (_amplitude != null &&
+            _amplitude!.current >
+                30 +
+                    Provider.of<MusicProvider>(context, listen: false)
+                        .sensitive) {
           _equalizeSize = 250 - (_amplitude!.current * -4);
         } else {
-          _equalizeSize = 100;
+          _equalizeSize = 80;
         }
       });
+      if (_amplitude != null &&
+          _amplitude!.current <
+              30 +
+                  Provider.of<MusicProvider>(context, listen: false)
+                      .sensitive) {
+        print(Provider.of<MusicProvider>(context, listen: false).sensitive);
+        _silenceCounter += 0.15;
+        _recordCounter = 0;
+      } else {
+        _recordCounter += 0.15;
+        _silenceCounter = 0;
+      }
     });
   }
 
@@ -264,10 +276,10 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   }
 
   void _setDurationStartTimer() {
-    // print("_______Recording$_recordCounter");
+    print("_______Recording$_recordCounter");
     _durationStartTimer?.cancel();
     _durationStartTimer = Timer.periodic(Duration(seconds: 2), (Timer t) async {
-      if (_recordCounter > 2) {
+      if (_recordCounter > 3) {
         setState(() {
           _isRecording = true;
         });

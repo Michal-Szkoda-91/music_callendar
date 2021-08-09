@@ -9,9 +9,18 @@ class MusicProvider with ChangeNotifier {
     targetTime: 1200,
     note: '',
   );
+  double _sensitive = 1;
 
   MusicEvent get temporaryMusicEvent {
     return _temporaryEvent;
+  }
+
+  double get sensitive {
+    return _sensitive;
+  }
+
+  void setSensitive(double sensitive) {
+    _sensitive = sensitive;
   }
 
   void setPlayTime(int time) {
