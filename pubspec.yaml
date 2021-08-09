@@ -38,7 +38,7 @@ dependencies:
   community_material_icon: ^5.9.55
   wakelock: ^0.5.3+3
   record: ^3.0.0
-  noise_meter: ^3.0.2
+  syncfusion_flutter_sliders: ^19.2.51
 
 
 
