@@ -7,6 +7,7 @@ import 'package:record/record.dart';
 import '../models/music_day_provider.dart';
 import 'actual_play_time_row.dart';
 import 'eqalizer.dart';
+import 'record_&_silence_slider.dart';
 import 'sensitive_slider.dart';
 
 class PlayTimeRow extends StatefulWidget {
@@ -28,8 +29,6 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   final _audioRecorder = Record();
   Amplitude? _amplitude;
   double _equalizeSize = 80;
-  double _silenceCounter = 0;
-  double _recordCounter = 0;
 
   Timer? _ampTimer;
   Timer? _durationStopTimer;
@@ -105,6 +104,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
               SensitiveSlider(),
             ],
           ),
+          RecordSilenceSlider(),
         ],
       ),
     );
@@ -162,8 +162,8 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
       _isListen = false;
       _isRecording = false;
       _equalizeSize = 100;
-      _silenceCounter = 0;
-      _recordCounter = 0;
+      Provider.of<MusicProvider>(context, listen: false).setSilenceCounter(0);
+      Provider.of<MusicProvider>(context, listen: false).setRecordCounter(0);
     });
   }
 
@@ -171,37 +171,46 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     _ampTimer?.cancel();
     _ampTimer =
         Timer.periodic(const Duration(milliseconds: 150), (Timer t) async {
+      // Providers
+      //
+      //
+      var silenceData =
+          Provider.of<MusicProvider>(context, listen: false).silenceCounter;
+      var recordData =
+          Provider.of<MusicProvider>(context, listen: false).recordCounter;
+      var sensitive =
+          Provider.of<MusicProvider>(context, listen: false).sensitive;
       _amplitude = await _audioRecorder.getAmplitude();
       setState(() {
         //animation controler
-        if (_amplitude != null &&
-            _amplitude!.current >
-                -(30 +
-                    Provider.of<MusicProvider>(context, listen: false)
-                        .sensitive)) {
+        if (_amplitude != null && _amplitude!.current > -(30 + sensitive)) {
           _equalizeSize = 250 - (_amplitude!.current * -4);
         } else {
           _equalizeSize = 80;
         }
       });
-      if (_amplitude != null &&
-          _amplitude!.current >
-              -(30 +
-                  Provider.of<MusicProvider>(context, listen: false)
-                      .sensitive)) {
-        _recordCounter += 0.15;
-        _silenceCounter = 0;
+      if (_amplitude != null && _amplitude!.current > -(30 + sensitive)) {
+        if (recordData < 0.95)
+          Provider.of<MusicProvider>(context, listen: false)
+              .setRecordCounter(recordData += 0.05);
+        Provider.of<MusicProvider>(context, listen: false).setSilenceCounter(0);
       } else {
-        _silenceCounter += 0.15;
-        _recordCounter = 0;
+        if (silenceData < 0.95)
+          Provider.of<MusicProvider>(context, listen: false)
+              .setSilenceCounter(silenceData += 0.05);
+        Provider.of<MusicProvider>(context, listen: false).setRecordCounter(0);
       }
     });
   }
 
   void _setDurationStopTimer() {
+    var silenceData =
+        Provider.of<MusicProvider>(context, listen: false).silenceCounter;
     _durationStopTimer?.cancel();
-    _durationStopTimer = Timer.periodic(Duration(seconds: 2), (Timer t) async {
-      if (_silenceCounter > 3) {
+    _durationStopTimer =
+        Timer.periodic(Duration(milliseconds: 1500), (Timer t) async {
+      print("silence____$silenceData");
+      if (silenceData > 0.95) {
         setState(() {
           _isRecording = false;
         });
@@ -211,9 +220,13 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   }
 
   void _setDurationStartTimer() {
+    var recordData =
+        Provider.of<MusicProvider>(context, listen: false).recordCounter;
     _durationStartTimer?.cancel();
-    _durationStartTimer = Timer.periodic(Duration(seconds: 3), (Timer t) async {
-      if (_recordCounter > 3) {
+    _durationStartTimer =
+        Timer.periodic(Duration(milliseconds: 1500), (Timer t) async {
+      print("recording_____-$recordData");
+      if (recordData > 0.95) {
         setState(() {
           _isRecording = true;
         });
