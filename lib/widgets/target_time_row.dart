@@ -24,7 +24,7 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
     Provider.of<MusicProvider>(context, listen: false)
         .setTargetTime(targetPlayTime.inSeconds);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       child: Column(
         children: [
           Row(

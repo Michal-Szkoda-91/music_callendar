@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../databaseHelper/databaseHelper.dart';
@@ -33,13 +32,10 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
     _appBarDate = DateFormat.yMd('pl_PL').format(widget.dateTime);
   }
 
-  late double _sliderValue;
-
   @override
   Widget build(BuildContext context) {
     Wakelock.enable();
     Provider.of<MusicProvider>(context, listen: false).setDate(_appBarDate);
-    _sliderValue = Provider.of<MusicProvider>(context).sensitive;
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async {
@@ -68,6 +64,16 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
           body: SingleChildScrollView(
             child: Column(
               children: [
+                widget.musicEvent.id != ''
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          DeleteButton(
+                              id: _appBarDate, previousContext: context),
+                          SaveButton(function: _saveResult),
+                        ],
+                      )
+                    : SaveButton(function: _saveResult),
                 TargetTimeRow(
                   targetTime: widget.musicEvent.targetTime,
                 ),
@@ -75,29 +81,6 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                   playTime: widget.musicEvent.playTime,
                   generalTime: widget.musicEvent.generalTime,
                 ),
-                SfSlider(
-                  showDividers: true,
-                  value: _sliderValue,
-                  onChanged: (value) {
-                    Provider.of<MusicProvider>(context, listen: false)
-                        .setSensitive(value);
-                    print(Provider.of<MusicProvider>(context, listen: false)
-                            .sensitive
-                            .toString() +
-                        "___________-");
-                    setState(() {
-                      _sliderValue = value;
-                    });
-                  },
-                  max: 20,
-                  min: 0,
-                  interval: 10,
-                  showLabels: true,
-                ),
-                SaveButton(function: _saveResult),
-                widget.musicEvent.id == ''
-                    ? Center()
-                    : DeleteButton(id: _appBarDate, previousContext: context),
               ],
             ),
           ),

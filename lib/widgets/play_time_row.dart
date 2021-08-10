@@ -1,15 +1,13 @@
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'package:record/record.dart';
-
-// import '../models/music_day_provider.dart';
 import 'dart:async';
 
-import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:music_callendar/models/music_day_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:record/record.dart';
+
+import '../models/music_day_provider.dart';
+import 'actual_play_time_row.dart';
+import 'eqalizer.dart';
+import 'sensitive_slider.dart';
 
 class PlayTimeRow extends StatefulWidget {
   final int playTime;
@@ -32,7 +30,6 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   double _equalizeSize = 80;
   double _silenceCounter = 0;
   double _recordCounter = 0;
-  late double _sensitive;
 
   Timer? _ampTimer;
   Timer? _durationStopTimer;
@@ -63,44 +60,22 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         .setPlayTime(actualPlayTime.inSeconds);
     Provider.of<MusicProvider>(context, listen: false)
         .setGeneralTime(generalPlayTime.inSeconds);
-    _sensitive = Provider.of<MusicProvider>(context, listen: false).sensitive;
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Czas gry \nna instrumencie:',
-                style: _customStyleSmall(),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(width: 20),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 5),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      width: 2,
-                      color: Theme.of(context).accentColor,
-                    ),
-                  ),
-                ),
-                child: Text(
-                  '${actualPlayTime.toString().split(".")[0]}',
-                  style: _customStyleBig(),
-                ),
-              ),
-            ],
-          ),
+          ActualPlayTimeRow(
+              actualPlayTime: actualPlayTime, isRecording: _isRecording),
           const SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'Całkowity czas:',
-                style: _customStyleSmall(),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(width: 20),
@@ -124,52 +99,14 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
               ),
             ],
           ),
-          Container(
-            width: double.infinity,
-            height: 260,
-            alignment: Alignment.center,
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 150),
-              height: _equalizeSize,
-              width: _equalizeSize,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  stops: [_isRecording ? 0.9 : 0.0, 1],
-                  colors: [
-                    _isRecording ? Colors.red : Colors.redAccent,
-                    Colors.white,
-                  ],
-                ),
-              ),
-              child: Center(
-                child: Icon(
-                  !_isRecording
-                      ? CommunityMaterialIcons.music_off
-                      : CommunityMaterialIcons.music,
-                  color: Colors.white,
-                  size: 35,
-                ),
-              ),
-            ),
+          Row(
+            children: [
+              Equalizer(equalizeSize: _equalizeSize, isRecording: _isRecording),
+              SensitiveSlider(),
+            ],
           ),
         ],
       ),
-    );
-  }
-
-  TextStyle _customStyleSmall() {
-    return TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-    );
-  }
-
-  TextStyle _customStyleBig() {
-    return TextStyle(
-      fontSize: 35,
-      fontWeight: FontWeight.bold,
-      color: _isRecording ? Colors.black : Colors.grey[350],
     );
   }
 
@@ -239,33 +176,31 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         //animation controler
         if (_amplitude != null &&
             _amplitude!.current >
-                30 +
+                -(30 +
                     Provider.of<MusicProvider>(context, listen: false)
-                        .sensitive) {
+                        .sensitive)) {
           _equalizeSize = 250 - (_amplitude!.current * -4);
         } else {
           _equalizeSize = 80;
         }
       });
       if (_amplitude != null &&
-          _amplitude!.current <
-              30 +
+          _amplitude!.current >
+              -(30 +
                   Provider.of<MusicProvider>(context, listen: false)
-                      .sensitive) {
-        print(Provider.of<MusicProvider>(context, listen: false).sensitive);
-        _silenceCounter += 0.15;
-        _recordCounter = 0;
-      } else {
+                      .sensitive)) {
         _recordCounter += 0.15;
         _silenceCounter = 0;
+      } else {
+        _silenceCounter += 0.15;
+        _recordCounter = 0;
       }
     });
   }
 
   void _setDurationStopTimer() {
     _durationStopTimer?.cancel();
-    // print("________Silence$_silenceCounter");
-    _durationStopTimer = Timer.periodic(Duration(seconds: 3), (Timer t) async {
+    _durationStopTimer = Timer.periodic(Duration(seconds: 2), (Timer t) async {
       if (_silenceCounter > 3) {
         setState(() {
           _isRecording = false;
@@ -276,9 +211,8 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   }
 
   void _setDurationStartTimer() {
-    print("_______Recording$_recordCounter");
     _durationStartTimer?.cancel();
-    _durationStartTimer = Timer.periodic(Duration(seconds: 2), (Timer t) async {
+    _durationStartTimer = Timer.periodic(Duration(seconds: 3), (Timer t) async {
       if (_recordCounter > 3) {
         setState(() {
           _isRecording = true;
