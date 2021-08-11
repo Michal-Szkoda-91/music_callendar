@@ -10,6 +10,8 @@ class MusicProvider with ChangeNotifier {
     note: '',
   );
   double _sensitive = 1;
+  double _silenceCounter = 0;
+  double _recordCounter = 0;
 
   MusicEvent get temporaryMusicEvent {
     return _temporaryEvent;
@@ -17,6 +19,22 @@ class MusicProvider with ChangeNotifier {
 
   double get sensitive {
     return _sensitive;
+  }
+
+  double get silenceCounter {
+    return _silenceCounter;
+  }
+
+  double get recordCounter {
+    return _recordCounter;
+  }
+
+  void setSilenceCounter(double silenceCounter) {
+    _silenceCounter = silenceCounter;
+  }
+
+  void setRecordCounter(double recordCounter) {
+    _recordCounter = recordCounter;
   }
 
   void setSensitive(double sensitive) {
