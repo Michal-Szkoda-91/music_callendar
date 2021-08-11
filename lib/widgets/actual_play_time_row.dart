@@ -5,7 +5,8 @@ class ActualPlayTimeRow extends StatelessWidget {
     Key? key,
     required this.actualPlayTime,
     required bool isRecording,
-  }) : _isRecording = isRecording, super(key: key);
+  })  : _isRecording = isRecording,
+        super(key: key);
 
   final Duration actualPlayTime;
   final bool _isRecording;
@@ -13,17 +14,16 @@ class ActualPlayTimeRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
           'Czas gry \nna instrumencie:',
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 15,
             fontWeight: FontWeight.w400,
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(width: 20),
         Container(
           padding: EdgeInsets.symmetric(horizontal: 5),
           decoration: BoxDecoration(

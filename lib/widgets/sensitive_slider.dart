@@ -15,21 +15,37 @@ class _SensitiveSliderState extends State<SensitiveSlider> {
   Widget build(BuildContext context) {
     _sliderValue = Provider.of<MusicProvider>(context).sensitive;
     return Container(
-      width: MediaQuery.of(context).size.width * 0.1,
-      child: SfSlider.vertical(
-        showDividers: true,
-        value: _sliderValue,
-        onChanged: (value) {
-          Provider.of<MusicProvider>(context, listen: false)
-              .setSensitive(value);
-          setState(() {
-            _sliderValue = value;
-          });
-        },
-        max: 20,
-        min: 0,
-        interval: 10,
-        showLabels: true,
+      width: MediaQuery.of(context).size.width * 0.2,
+      child: Column(
+        children: [
+          Text(
+            "Czułość",
+            style: TextStyle(
+              fontSize: 12,
+            ),
+          ),
+          SfSlider.vertical(
+            showDividers: true,
+            value: _sliderValue,
+            onChanged: (value) {
+              Provider.of<MusicProvider>(context, listen: false)
+                  .setSensitive(value);
+              setState(() {
+                _sliderValue = value;
+              });
+            },
+            max: 20,
+            min: 0,
+            interval: 20,
+            showLabels: true,
+            labelFormatterCallback:
+                (dynamic actualValue, String formattedText) {
+              return actualValue == 20 ? '\max' : '\min';
+            },
+            activeColor: Theme.of(context).accentColor,
+            inactiveColor: Theme.of(context).primaryColor,
+          ),
+        ],
       ),
     );
   }

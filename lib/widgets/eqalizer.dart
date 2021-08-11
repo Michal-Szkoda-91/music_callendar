@@ -16,8 +16,8 @@ class Equalizer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: MediaQuery.of(context).size.width * 0.8,
+      width: MediaQuery.of(context).size.width * 0.75,
+      height: MediaQuery.of(context).size.width * 0.75,
       alignment: Alignment.center,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 150),

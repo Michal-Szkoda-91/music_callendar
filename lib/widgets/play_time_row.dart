@@ -72,7 +72,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
               Text(
                 'Całkowity czas:',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.w400,
                 ),
                 textAlign: TextAlign.center,
@@ -197,7 +197,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
       } else {
         if (silenceData < 0.95)
           Provider.of<MusicProvider>(context, listen: false)
-              .setSilenceCounter(silenceData += 0.05);
+              .setSilenceCounter(silenceData += 0.1);
         Provider.of<MusicProvider>(context, listen: false).setRecordCounter(0);
       }
     });
@@ -208,7 +208,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         Provider.of<MusicProvider>(context, listen: false).silenceCounter;
     _durationStopTimer?.cancel();
     _durationStopTimer =
-        Timer.periodic(Duration(milliseconds: 1500), (Timer t) async {
+        Timer.periodic(Duration(milliseconds: 800), (Timer t) async {
       print("silence____$silenceData");
       if (silenceData > 0.95) {
         setState(() {
@@ -223,8 +223,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     var recordData =
         Provider.of<MusicProvider>(context, listen: false).recordCounter;
     _durationStartTimer?.cancel();
-    _durationStartTimer =
-        Timer.periodic(Duration(milliseconds: 1500), (Timer t) async {
+    _durationStartTimer = Timer.periodic(Duration(seconds: 1), (Timer t) async {
       print("recording_____-$recordData");
       if (recordData > 0.95) {
         setState(() {

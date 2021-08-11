@@ -36,7 +36,7 @@ class _DeleteButtonState extends State<DeleteButton> {
         // Navigator.of(context).pop();
       },
       icon: Icon(Icons.delete),
-      label: Text("Usuń wydarzenie"),
+      label: Text("Usuń wydarz."),
     );
   }
 

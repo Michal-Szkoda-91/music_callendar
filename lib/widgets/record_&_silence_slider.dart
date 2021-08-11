@@ -37,7 +37,7 @@ class _RecordSilenceSliderState extends State<RecordSilenceSlider> {
                   ],
                   colors: [
                     Colors.red,
-                    Colors.white,
+                    Theme.of(context).primaryColor,
                   ],
                 ),
               ),
@@ -69,7 +69,7 @@ class _RecordSilenceSliderState extends State<RecordSilenceSlider> {
                   ],
                   colors: [
                     Colors.green,
-                    Colors.white,
+                    Theme.of(context).primaryColor,
                   ],
                 ),
               ),
