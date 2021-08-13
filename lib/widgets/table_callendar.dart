@@ -46,83 +46,95 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
   Widget build(BuildContext context) {
     final data = Provider.of<MusicEvents>(context, listen: false);
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          TableCalendar(
-            availableGestures: AvailableGestures.horizontalSwipe,
-            locale: 'pl_PL',
-            calendarFormat: CalendarFormat.month,
-            headerStyle: HeaderStyle(
-              formatButtonVisible: false,
+      child: MediaQuery.of(context).orientation == Orientation.portrait
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                _createTableCalendar(),
+                const SizedBox(height: 25),
+                _createCardContainer(data),
+              ],
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: _createTableCalendar()),
+                Container(
+                    padding: const EdgeInsets.only(top: 60),
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: _createCardContainer(data)),
+              ],
             ),
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            focusedDay: _focusedDay,
-            firstDay: DateTime.utc(2000),
-            lastDay: DateTime.utc(2200),
-            calendarStyle: CalendarStyle(
-              outsideDaysVisible: false,
-            ),
-            holidayPredicate: (day) {
-              if (day.weekday == 6 || day.weekday == 7) {
-                return true;
-              } else
-                return false;
-            },
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              getEvents(DateFormat.yMd('pl_PL').format(selectedDay));
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay;
-              });
-            },
-            calendarBuilders: CalendarBuilders(
-              selectedBuilder: (context, day, today) {
-                return SelectedDayBuilder(
-                  day: day,
-                );
-              },
-              todayBuilder: (context, day, today) {
-                return TodayBuilder(
-                  day: day,
-                );
-              },
-              holidayBuilder: (context, day, today) {
-                return HolidayBuilder(
-                  day: day,
-                );
-              },
-              defaultBuilder: (context, day, today) {
-                return DefaultBuilder(
-                  day: day,
-                );
-              },
-            ),
-          ),
-          Container(
-            child: data
-                        .findById(DateFormat.yMd('pl_PL').format(_selectedDay))
-                        .id ==
-                    ''
-                ? Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: AddingEventButton(
-                      dateTime: _focusedDay,
-                    ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: InfoEventCard(
-                      dateTime: _focusedDay,
-                      musicEvent: data.findById(
-                          DateFormat.yMd('pl_PL').format(_selectedDay)),
-                    ),
-                  ),
-          ),
-        ],
+    );
+  }
+
+  Widget _createCardContainer(MusicEvents data) {
+    return data.findById(DateFormat.yMd('pl_PL').format(_selectedDay)).id == ''
+        ? AddingEventButton(
+            dateTime: _focusedDay,
+          )
+        : InfoEventCard(
+            dateTime: _focusedDay,
+            musicEvent:
+                data.findById(DateFormat.yMd('pl_PL').format(_selectedDay)),
+          );
+  }
+
+  TableCalendar<dynamic> _createTableCalendar() {
+    return TableCalendar(
+      availableGestures: AvailableGestures.horizontalSwipe,
+      locale: 'pl_PL',
+      calendarFormat: CalendarFormat.month,
+      headerStyle: HeaderStyle(
+        formatButtonVisible: false,
+      ),
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      focusedDay: _focusedDay,
+      firstDay: DateTime.utc(2000),
+      lastDay: DateTime.utc(2200),
+      calendarStyle: CalendarStyle(
+        outsideDaysVisible: false,
+      ),
+      holidayPredicate: (day) {
+        if (day.weekday == 6 || day.weekday == 7) {
+          return true;
+        } else
+          return false;
+      },
+      selectedDayPredicate: (day) {
+        return isSameDay(_selectedDay, day);
+      },
+      onDaySelected: (selectedDay, focusedDay) {
+        getEvents(DateFormat.yMd('pl_PL').format(selectedDay));
+        setState(() {
+          _selectedDay = selectedDay;
+          _focusedDay = focusedDay;
+        });
+      },
+      calendarBuilders: CalendarBuilders(
+        selectedBuilder: (context, day, today) {
+          return SelectedDayBuilder(
+            day: day,
+          );
+        },
+        todayBuilder: (context, day, today) {
+          return TodayBuilder(
+            day: day,
+          );
+        },
+        holidayBuilder: (context, day, today) {
+          return HolidayBuilder(
+            day: day,
+          );
+        },
+        defaultBuilder: (context, day, today) {
+          return DefaultBuilder(
+            day: day,
+          );
+        },
       ),
     );
   }

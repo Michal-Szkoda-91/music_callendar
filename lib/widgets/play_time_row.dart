@@ -33,6 +33,8 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   Timer? _ampTimer;
   Timer? _durationStopTimer;
   Timer? _durationStartTimer;
+  Timer? _incraseGeneralTime;
+  Timer? _incraseActualTime;
 
   @override
   void initState() {
@@ -46,10 +48,14 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
 
   @override
   void dispose() {
+    _isListen = false;
+    _isRecording = false;
     _audioRecorder.dispose();
     _ampTimer?.cancel();
     _durationStopTimer?.cancel();
     _durationStartTimer?.cancel();
+    _incraseGeneralTime?.cancel();
+    _incraseActualTime?.cancel();
     super.dispose();
   }
 
@@ -59,79 +65,96 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         .setPlayTime(actualPlayTime.inSeconds);
     Provider.of<MusicProvider>(context, listen: false)
         .setGeneralTime(generalPlayTime.inSeconds);
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
-      child: Column(
-        children: [
-          ActualPlayTimeRow(
-              actualPlayTime: actualPlayTime, isRecording: _isRecording),
-          const SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return MediaQuery.of(context).orientation == Orientation.portrait
+        ?
+        // Portrait MODE
+        //
+        //
+        Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                'Całkowity czas:',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                ),
-                textAlign: TextAlign.center,
+              ActualPlayTimeRow(
+                  actualPlayTime: actualPlayTime, isRecording: _isRecording),
+              const SizedBox(height: 15),
+              _createRowGenerealTime(context),
+              Row(
+                children: [
+                  SensitiveSlider(),
+                  Equalizer(
+                      equalizeSize: _equalizeSize, isRecording: _isRecording),
+                ],
               ),
-              const SizedBox(width: 20),
-              !_isListen
-                  ? InkWell(
-                      child: Icon(Icons.play_arrow,
-                          size: 45, color: Theme.of(context).accentColor),
-                      onTap: startListen,
-                    )
-                  : InkWell(
-                      child: Icon(Icons.stop,
-                          size: 45, color: Theme.of(context).accentColor),
-                      onTap: _stopListen,
-                    ),
-              const SizedBox(width: 20),
-              Text(
-                '${generalPlayTime.toString().split(".")[0]}',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: _isListen ? Colors.black : Colors.grey[350]),
+              RecordSilenceSlider(),
+            ],
+          )
+        :
+        //Landscape MODE
+        //
+        //
+        Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SensitiveSlider(),
+                      Equalizer(
+                          equalizeSize: _equalizeSize,
+                          isRecording: _isRecording),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(width: 30),
+              Column(
+                children: [
+                  ActualPlayTimeRow(
+                      actualPlayTime: actualPlayTime,
+                      isRecording: _isRecording),
+                  const SizedBox(height: 20),
+                  _createRowGenerealTime(context),
+                  const SizedBox(height: 20),
+                  RecordSilenceSlider(),
+                ],
               ),
             ],
+          );
+  }
+
+  Row _createRowGenerealTime(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Całkowity czas:',
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
           ),
-          Row(
-            children: [
-              Equalizer(equalizeSize: _equalizeSize, isRecording: _isRecording),
-              SensitiveSlider(),
-            ],
-          ),
-          RecordSilenceSlider(),
-        ],
-      ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(width: 20),
+        !_isListen
+            ? InkWell(
+                child: Icon(Icons.play_arrow,
+                    size: 45, color: Theme.of(context).accentColor),
+                onTap: startListen,
+              )
+            : InkWell(
+                child: Icon(Icons.stop,
+                    size: 45, color: Theme.of(context).accentColor),
+                onTap: _stopListen,
+              ),
+        const SizedBox(width: 20),
+        Text(
+          '${generalPlayTime.toString().split(".")[0]}',
+          style: TextStyle(
+              fontSize: 20, color: _isListen ? Colors.black : Colors.grey[350]),
+        ),
+      ],
     );
-  }
-
-  void incrasePlayTime() {
-    Future.delayed(Duration(seconds: 1)).then((value) {
-      setState(() {
-        if (_isRecording) {
-          actualPlayTime += Duration(seconds: 1);
-        }
-      });
-      Provider.of<MusicProvider>(context, listen: false)
-          .setPlayTime(actualPlayTime.inSeconds);
-      if (_isListen) incrasePlayTime();
-    });
-  }
-
-  void incraseGeneralTime() {
-    Future.delayed(Duration(seconds: 1)).then((value) {
-      setState(() {
-        generalPlayTime += Duration(seconds: 1);
-      });
-      Provider.of<MusicProvider>(context, listen: false)
-          .setGeneralTime(generalPlayTime.inSeconds);
-      if (_isListen) incraseGeneralTime();
-    });
   }
 
   Future<void> startListen() async {
@@ -158,6 +181,8 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     _ampTimer?.cancel();
     _durationStartTimer?.cancel();
     _durationStopTimer?.cancel();
+    _incraseActualTime?.cancel();
+    _incraseGeneralTime?.cancel();
     setState(() {
       _isListen = false;
       _isRecording = false;
@@ -167,10 +192,32 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     });
   }
 
+  void incrasePlayTime() {
+    _incraseActualTime?.cancel();
+    _incraseActualTime = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_isRecording) {
+        actualPlayTime += Duration(seconds: 1);
+        Provider.of<MusicProvider>(context, listen: false)
+            .setPlayTime(actualPlayTime.inSeconds);
+      }
+    });
+  }
+
+  void incraseGeneralTime() {
+    _incraseGeneralTime?.cancel();
+    _incraseGeneralTime = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        generalPlayTime += Duration(seconds: 1);
+        Provider.of<MusicProvider>(context, listen: false)
+            .setGeneralTime(generalPlayTime.inSeconds);
+      });
+    });
+  }
+
   void _setApmTimer() {
     _ampTimer?.cancel();
     _ampTimer =
-        Timer.periodic(const Duration(milliseconds: 150), (Timer t) async {
+        Timer.periodic(const Duration(milliseconds: 250), (Timer t) async {
       // Providers
       //
       //
@@ -197,7 +244,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
       } else {
         if (silenceData < 0.95)
           Provider.of<MusicProvider>(context, listen: false)
-              .setSilenceCounter(silenceData += 0.1);
+              .setSilenceCounter(silenceData += 0.15);
         Provider.of<MusicProvider>(context, listen: false).setRecordCounter(0);
       }
     });
@@ -208,8 +255,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         Provider.of<MusicProvider>(context, listen: false).silenceCounter;
     _durationStopTimer?.cancel();
     _durationStopTimer =
-        Timer.periodic(Duration(milliseconds: 800), (Timer t) async {
-      print("silence____$silenceData");
+        Timer.periodic(Duration(milliseconds: 300), (Timer t) async {
       if (silenceData > 0.95) {
         setState(() {
           _isRecording = false;
@@ -223,8 +269,8 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     var recordData =
         Provider.of<MusicProvider>(context, listen: false).recordCounter;
     _durationStartTimer?.cancel();
-    _durationStartTimer = Timer.periodic(Duration(seconds: 1), (Timer t) async {
-      print("recording_____-$recordData");
+    _durationStartTimer =
+        Timer.periodic(Duration(milliseconds: 300), (Timer t) async {
       if (recordData > 0.95) {
         setState(() {
           _isRecording = true;

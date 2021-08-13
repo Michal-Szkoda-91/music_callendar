@@ -62,27 +62,46 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
             backgroundColor: Theme.of(context).accentColor,
           ),
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                widget.musicEvent.id != ''
-                    ? Row(
+            child: MediaQuery.of(context).orientation == Orientation.portrait
+                // Portrait MODE
+                //
+                //
+                ? Column(
+                    children: [
+                      _createSaveDeleteButton(),
+                      TargetTimeRow(
+                        targetTime: widget.musicEvent.targetTime,
+                      ),
+                      PlayTimeRow(
+                        playTime: widget.musicEvent.playTime,
+                        generalTime: widget.musicEvent.generalTime,
+                      ),
+                    ],
+                  )
+                :
+                //Landscape MODE
+                //
+                //
+                Column(
+                    children: [
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          DeleteButton(
-                              id: _appBarDate, previousContext: context),
-                          SaveButton(function: _saveResult),
+                          Container(
+                              padding: EdgeInsets.zero,
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: _createSaveDeleteButton()),
+                          TargetTimeRow(
+                            targetTime: widget.musicEvent.targetTime,
+                          )
                         ],
-                      )
-                    : SaveButton(function: _saveResult),
-                TargetTimeRow(
-                  targetTime: widget.musicEvent.targetTime,
-                ),
-                PlayTimeRow(
-                  playTime: widget.musicEvent.playTime,
-                  generalTime: widget.musicEvent.generalTime,
-                ),
-              ],
-            ),
+                      ),
+                      PlayTimeRow(
+                        playTime: widget.musicEvent.playTime,
+                        generalTime: widget.musicEvent.generalTime,
+                      ),
+                    ],
+                  ),
           ),
           floatingActionButton: NoteFloatingBar(
             initnote: widget.musicEvent.note,
@@ -90,6 +109,18 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
         ),
       ),
     );
+  }
+
+  Widget _createSaveDeleteButton() {
+    return widget.musicEvent.id != ''
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              DeleteButton(id: _appBarDate, previousContext: context),
+              SaveButton(function: _saveResult),
+            ],
+          )
+        : SaveButton(function: _saveResult);
   }
 
   void _saveResult() {

@@ -20,7 +20,10 @@ class _RecordSilenceSliderState extends State<RecordSilenceSlider> {
           children: [
             AnimatedContainer(
               duration: Duration(milliseconds: 50),
-              width: MediaQuery.of(context).size.width * 0.40,
+              width: MediaQuery.of(context).size.width *
+                  (MediaQuery.of(context).orientation == Orientation.portrait
+                      ? 0.4
+                      : 0.15),
               height: 20,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -51,7 +54,10 @@ class _RecordSilenceSliderState extends State<RecordSilenceSlider> {
             ),
             AnimatedContainer(
               duration: Duration(milliseconds: 50),
-              width: MediaQuery.of(context).size.width * 0.40,
+              width: MediaQuery.of(context).size.width *
+                  (MediaQuery.of(context).orientation == Orientation.portrait
+                      ? 0.4
+                      : 0.15),
               height: 20,
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
@@ -81,7 +87,12 @@ class _RecordSilenceSliderState extends State<RecordSilenceSlider> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(CommunityMaterialIcons.music_off, color: Colors.red),
-            SizedBox(width: MediaQuery.of(context).size.width * 0.7),
+            SizedBox(
+              width: MediaQuery.of(context).size.width *
+                  (MediaQuery.of(context).orientation == Orientation.portrait
+                      ? 0.7
+                      : 0.25),
+            ),
             Icon(CommunityMaterialIcons.music, color: Colors.green),
           ],
         )

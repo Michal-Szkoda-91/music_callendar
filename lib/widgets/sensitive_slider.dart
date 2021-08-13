@@ -15,7 +15,11 @@ class _SensitiveSliderState extends State<SensitiveSlider> {
   Widget build(BuildContext context) {
     _sliderValue = Provider.of<MusicProvider>(context).sensitive;
     return Container(
-      width: MediaQuery.of(context).size.width * 0.2,
+      padding: EdgeInsets.zero,
+      width: MediaQuery.of(context).size.width *
+          (MediaQuery.of(context).orientation == Orientation.portrait
+              ? 0.2
+              : 0.1),
       child: Column(
         children: [
           Text(
