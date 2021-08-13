@@ -38,8 +38,18 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
           borderRadius: BorderRadius.circular(30),
           color: Theme.of(context).accentColor,
         ),
-        width: _selected ? MediaQuery.of(context).size.width - 30 : 60,
-        height: _selected ? 300 : 60,
+        width: _selected
+            ? MediaQuery.of(context).size.width *
+                    (MediaQuery.of(context).orientation == Orientation.portrait
+                        ? 1
+                        : 0.6) -
+                30
+            : 60,
+        height: _selected
+            ? MediaQuery.of(context).orientation == Orientation.portrait
+                ? 300
+                : 210
+            : 60,
         duration: _animationDuration,
         child: !_selected
             ? AnimatedOpacity(
@@ -72,8 +82,23 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                               ),
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.5,
+                              width: MediaQuery.of(context).size.width *
+                                  (MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? 0.5
+                                      : 0.4),
                             ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selected = false;
+                                });
+                              },
+                              child: Icon(
+                                Icons.close,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -87,7 +112,12 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                       width: _selected
                           ? MediaQuery.of(context).size.width - 50
                           : 0,
-                      height: _selected ? 200 : 0,
+                      height: _selected
+                          ? MediaQuery.of(context).orientation ==
+                                  Orientation.portrait
+                              ? 200
+                              : 130
+                          : 0,
                       duration: _animationDuration,
                       child: TextField(
                         controller: _noteControler,
@@ -129,7 +159,11 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                         child: Row(
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.5,
+                              width: MediaQuery.of(context).size.width *
+                                  (MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? 0.5
+                                      : 0.4),
                             ),
                             TextButton.icon(
                               onPressed: () {
