@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:music_callendar/models/music_day_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+
+import '../../models/music_day_provider.dart';
 
 class SensitiveSlider extends StatefulWidget {
   @override

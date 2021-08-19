@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
-import 'package:music_callendar/models/music_day_event.dart';
 
-import 'package:music_callendar/screens/music_event_adding_screen.dart';
+import '../../models/music_day_event.dart';
+import '../../screens/music_event_adding_screen.dart';
 
 class AddingEventButton extends StatelessWidget {
   final DateTime dateTime;

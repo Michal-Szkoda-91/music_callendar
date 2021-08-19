@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:music_callendar/models/music_day_event.dart';
 import 'package:provider/provider.dart';
 
-import 'package:music_callendar/models/music_day_provider.dart';
-import 'package:music_callendar/screens/main_page_screen.dart';
+import '/models/music_day_event.dart';
+import '/models/setting_providers.dart';
+import '/models/music_day_provider.dart';
+import '/screens/main_page_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => MusicProvider()),
         ChangeNotifierProvider(create: (_) => MusicEvents()),
+        ChangeNotifierProvider(create: (_) => SettingProvider()),
       ],
       child: MaterialApp(
         localizationsDelegates: [
@@ -39,6 +41,9 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             headline1: TextStyle(
               color: Colors.white,
+            ),
+            headline2: TextStyle(
+              color: Colors.black,
             ),
           ),
         ),

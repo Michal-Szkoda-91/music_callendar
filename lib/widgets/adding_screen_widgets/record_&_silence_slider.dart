@@ -1,7 +1,8 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:music_callendar/models/music_day_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/music_day_provider.dart';
 
 class RecordSilenceSlider extends StatefulWidget {
   RecordSilenceSlider({Key? key}) : super(key: key);

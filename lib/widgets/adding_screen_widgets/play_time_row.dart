@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:record/record.dart';
 
-import '../models/music_day_provider.dart';
+import '../../models/setting_providers.dart';
+import '../../models/music_day_provider.dart';
 import 'actual_play_time_row.dart';
 import 'eqalizer.dart';
 import 'record_&_silence_slider.dart';
@@ -227,6 +228,8 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
           Provider.of<MusicProvider>(context, listen: false).recordCounter;
       var sensitive =
           Provider.of<MusicProvider>(context, listen: false).sensitive;
+      var settings =
+          Provider.of<SettingProvider>(context, listen: false).settingModel;
       _amplitude = await _audioRecorder.getAmplitude();
       setState(() {
         //animation controler
@@ -239,16 +242,16 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
       if (_amplitude != null && _amplitude!.current > -(30 + sensitive)) {
         if (recordData < 0.95) {
           Provider.of<MusicProvider>(context, listen: false).setRecordCounter(
-              recordData +=
-                  0.05); // set how long should app listen to start record
+            recordData += settings.waitForRecordTime,
+          ); // set how long should app listen to start record
           Provider.of<MusicProvider>(context, listen: false)
               .setSilenceCounter(0);
         }
       } else {
         if (silenceData < 0.95) {
           Provider.of<MusicProvider>(context, listen: false).setSilenceCounter(
-              silenceData +=
-                  0.05); // set how long should by silence to stop record
+            silenceData += settings.waitForStopRecordTime,
+          ); // set how long should by silence to stop record
           Provider.of<MusicProvider>(context, listen: false)
               .setRecordCounter(0);
         }
