@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../screens/music_event_adding_screen.dart';
-import '../models/music_day_event.dart';
+import '../../screens/music_event_adding_screen.dart';
+import '../../models/music_day_event.dart';
 
 class InfoEventCard extends StatelessWidget {
   final DateTime dateTime;

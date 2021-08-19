@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:music_callendar/databaseHelper/databaseHelper.dart';
+
+import '../databaseHelper/databaseHelper.dart';
 
 class MusicEvent {
   String id;

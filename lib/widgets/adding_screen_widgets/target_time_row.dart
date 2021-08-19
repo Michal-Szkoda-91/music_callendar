@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:music_callendar/models/music_day_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/music_day_provider.dart';
 
 class TargetTimeRow extends StatefulWidget {
   final int targetTime;

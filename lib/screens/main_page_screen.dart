@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/setting_providers.dart';
 import '../models/music_day_event.dart';
 import '../screens/settings_screen.dart';
-import '../widgets/table_callendar.dart';
+import '../widgets/main_page_widgets/table_callendar.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key? key}) : super(key: key);
@@ -20,13 +21,19 @@ class _MainPageState extends State<MainPage> {
     await Provider.of<MusicEvents>(context).fetchAndSetEvents();
   }
 
+  Future<void> _loadSetting() async {
+    await Provider.of<SettingProvider>(context, listen: false).loadSetting();
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_isInit) {
       _loadData().then((value) {
-        setState(() {
-          _isLoaded = true;
+        _loadSetting().then((value) {
+          setState(() {
+            _isLoaded = true;
+          });
         });
       });
     }

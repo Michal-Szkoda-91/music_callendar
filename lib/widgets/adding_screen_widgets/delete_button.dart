@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:music_callendar/databaseHelper/databaseHelper.dart';
-import 'package:music_callendar/models/music_day_event.dart';
-import 'package:music_callendar/models/music_day_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../../databaseHelper/databaseHelper.dart';
+import '../../models/music_day_event.dart';
+import '../../models/music_day_provider.dart';
 
 class DeleteButton extends StatefulWidget {
   final String id;

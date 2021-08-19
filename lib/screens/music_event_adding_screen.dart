@@ -6,12 +6,12 @@ import 'package:wakelock/wakelock.dart';
 import '../screens/settings_screen.dart';
 import '../databaseHelper/databaseHelper.dart';
 import '../models/music_day_event.dart';
-import '../widgets/delete_button.dart';
-import '../widgets/save_button.dart';
+import '../widgets/adding_screen_widgets/delete_button.dart';
+import '../widgets/adding_screen_widgets/save_button.dart';
 import '../models/music_day_provider.dart';
-import '../widgets/target_time_row.dart';
-import '../widgets/note_floating_act_bar.dart';
-import '../widgets/play_time_row.dart';
+import '../widgets/adding_screen_widgets/target_time_row.dart';
+import '../widgets/adding_screen_widgets/note_floating_act_bar.dart';
+import '../widgets/adding_screen_widgets/play_time_row.dart';
 
 class MusicEventAddingScreen extends StatefulWidget {
   final DateTime dateTime;

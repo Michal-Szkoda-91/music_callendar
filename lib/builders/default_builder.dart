@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../globalMethods/global_methods.dart';
 import '../models/music_day_event.dart';
-import '../widgets/buidler_callendar_container.dart';
+import '../widgets/main_page_widgets/buidler_callendar_container.dart';
 
 class DefaultBuilder extends StatefulWidget {
   DefaultBuilder({

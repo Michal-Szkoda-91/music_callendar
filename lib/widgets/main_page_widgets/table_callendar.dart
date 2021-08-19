@@ -4,13 +4,13 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/info_event_card.dart';
-import '../databaseHelper/databaseHelper.dart';
-import '../models/music_day_event.dart';
-import '../builders/default_builder.dart';
-import '../builders/holiday_builder.dart';
-import '../builders/selected_day_builder.dart';
-import '../builders/today_builder.dart';
+import 'info_event_card.dart';
+import '../../databaseHelper/databaseHelper.dart';
+import '../../models/music_day_event.dart';
+import '../../builders/default_builder.dart';
+import '../../builders/holiday_builder.dart';
+import '../../builders/selected_day_builder.dart';
+import '../../builders/today_builder.dart';
 import 'adding_event_button.dart';
 
 class CustomTableCalendar extends StatefulWidget {

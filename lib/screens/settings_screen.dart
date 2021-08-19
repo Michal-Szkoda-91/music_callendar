@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/settings_screen_widgets/record_time_setting.dart';
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
 
@@ -25,10 +27,12 @@ class SettingsScreen extends StatelessWidget {
           ),
           backgroundColor: Theme.of(context).accentColor,
         ),
-          backgroundColor: Theme.of(context).backgroundColor,
-          body: Column(children: [
-            
-          ],),
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: Column(
+          children: [
+            RecordTimeSetting(),
+          ],
+        ),
       ),
     );
   }
