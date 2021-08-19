@@ -34,4 +34,11 @@ class SettingProvider with ChangeNotifier {
     loadSetting();
     notifyListeners();
   }
+
+  Future<void> setWaitStopRecordTime(double waitTime) async {
+    final SharedPreferences prefs = await _prefs;
+    prefs.setDouble('waitForStopRecordTime', waitTime);
+    loadSetting();
+    notifyListeners();
+  }
 }

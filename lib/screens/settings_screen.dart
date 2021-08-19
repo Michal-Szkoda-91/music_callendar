@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/settings_screen_widgets/silence_time_setting.dart';
 import '../../widgets/settings_screen_widgets/record_time_setting.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -28,10 +29,13 @@ class SettingsScreen extends StatelessWidget {
           backgroundColor: Theme.of(context).accentColor,
         ),
         backgroundColor: Theme.of(context).backgroundColor,
-        body: Column(
-          children: [
-            RecordTimeSetting(),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              RecordTimeSetting(),
+              StopRecordTimeSetting(),
+            ],
+          ),
         ),
       ),
     );
