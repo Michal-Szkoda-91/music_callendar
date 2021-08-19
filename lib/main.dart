@@ -28,11 +28,11 @@ class MyApp extends StatelessWidget {
           Locale('pl', 'PL'),
         ],
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Music Callendar',
         theme: ThemeData(
-          primaryColor: Colors.grey[300],
+          primaryColor: Colors.grey[100],
           backgroundColor: Colors.purple[50],
-          accentColor: Colors.purple[300],
+          accentColor: Colors.purple[400],
           buttonTheme: ButtonThemeData(
             buttonColor: Colors.purple[300],
           ),

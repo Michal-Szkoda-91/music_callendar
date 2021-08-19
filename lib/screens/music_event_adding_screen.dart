@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../screens/settings_screen.dart';
 import '../databaseHelper/databaseHelper.dart';
 import '../models/music_day_event.dart';
 import '../widgets/delete_button.dart';
@@ -44,6 +45,17 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
         },
         child: Scaffold(
           appBar: AppBar(
+            actions: [
+              IconButton(
+                onPressed: () {
+                  _navigateToSettings(context);
+                },
+                icon: Icon(
+                  Icons.menu,
+                  color: Theme.of(context).primaryColor,
+                ),
+              )
+            ],
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
@@ -61,6 +73,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
             ),
             backgroundColor: Theme.of(context).accentColor,
           ),
+          backgroundColor: Theme.of(context).backgroundColor,
           body: SingleChildScrollView(
             child: MediaQuery.of(context).orientation == Orientation.portrait
                 // Portrait MODE
@@ -219,6 +232,15 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
           ],
         );
       },
+    );
+  }
+
+  void _navigateToSettings(BuildContext ctx) {
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => SettingsScreen(),
+      ),
     );
   }
 }

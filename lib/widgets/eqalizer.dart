@@ -36,16 +36,16 @@ class Equalizer extends StatelessWidget {
             stops: [_isRecording ? 0.9 : 0.0, 1],
             colors: [
               _isRecording ? Colors.red : Colors.redAccent,
-              Colors.white,
+              Theme.of(context).backgroundColor,
             ],
           ),
         ),
         child: Center(
           child: Icon(
             !_isRecording
-                ? CommunityMaterialIcons.music_off
-                : CommunityMaterialIcons.music,
-            color: Colors.white,
+                ? CommunityMaterialIcons.headphones_off
+                : CommunityMaterialIcons.headphones,
+            color: Theme.of(context).backgroundColor,
             size: 35,
           ),
         ),
