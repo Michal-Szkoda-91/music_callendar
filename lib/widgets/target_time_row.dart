@@ -75,60 +75,65 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
     showDialog(
       context: context,
       builder: (ctx) {
-        return SimpleDialog(
-          backgroundColor: Theme.of(context).backgroundColor,
-          children: [
-            Text(
-              'Ustaw długość gry na instrumencie',
-              style: _customStyleSmall(),
-              textAlign: TextAlign.center,
-            ),
-            CupertinoTimerPicker(
-              mode: CupertinoTimerPickerMode.hms,
-              initialTimerDuration: actualDuration,
-              onTimerDurationChanged: (value) {
-                setState(() {
-                  targetPlayTime = value;
-                });
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                    //Providers
-                    Provider.of<MusicProvider>(context, listen: false)
-                        .setTargetTime(targetPlayTime.inSeconds);
-                  },
-                  child: Text(
-                    "Zapisz",
-                    style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontSize: 18,
-                    ),
+        return Dialog(
+            backgroundColor: Theme.of(context).backgroundColor,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text(
+                    'Ustaw długość gry na instrumencie',
+                    style: _customStyleSmall(),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      targetPlayTime = actualDuration;
-                    });
-                    Navigator.of(ctx).pop();
-                  },
-                  child: Text(
-                    "Anuluj",
-                    style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontSize: 18,
-                    ),
+                  CupertinoTimerPicker(
+                    mode: CupertinoTimerPickerMode.hms,
+                    initialTimerDuration: actualDuration,
+                    onTimerDurationChanged: (value) {
+                      setState(() {
+                        targetPlayTime = value;
+                      });
+                    },
                   ),
-                ),
-              ],
-            )
-          ],
-        );
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(ctx).pop();
+                            //Providers
+                            Provider.of<MusicProvider>(context, listen: false)
+                                .setTargetTime(targetPlayTime.inSeconds);
+                          },
+                          child: Text(
+                            "Zapisz",
+                            style: TextStyle(
+                              color: Theme.of(context).accentColor,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              targetPlayTime = actualDuration;
+                            });
+                            Navigator.of(ctx).pop();
+                          },
+                          child: Text(
+                            "Anuluj",
+                            style: TextStyle(
+                              color: Theme.of(context).accentColor,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ));
       },
     );
   }

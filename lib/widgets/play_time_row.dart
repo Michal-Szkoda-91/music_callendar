@@ -237,15 +237,21 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         }
       });
       if (_amplitude != null && _amplitude!.current > -(30 + sensitive)) {
-        if (recordData < 0.95)
+        if (recordData < 0.95) {
+          Provider.of<MusicProvider>(context, listen: false).setRecordCounter(
+              recordData +=
+                  0.05); // set how long should app listen to start record
           Provider.of<MusicProvider>(context, listen: false)
-              .setRecordCounter(recordData += 0.05);
-        Provider.of<MusicProvider>(context, listen: false).setSilenceCounter(0);
+              .setSilenceCounter(0);
+        }
       } else {
-        if (silenceData < 0.95)
+        if (silenceData < 0.95) {
+          Provider.of<MusicProvider>(context, listen: false).setSilenceCounter(
+              silenceData +=
+                  0.05); // set how long should by silence to stop record
           Provider.of<MusicProvider>(context, listen: false)
-              .setSilenceCounter(silenceData += 0.15);
-        Provider.of<MusicProvider>(context, listen: false).setRecordCounter(0);
+              .setRecordCounter(0);
+        }
       }
     });
   }

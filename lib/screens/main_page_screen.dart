@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:music_callendar/models/music_day_event.dart';
 import 'package:provider/provider.dart';
 
+import '../models/music_day_event.dart';
+import '../screens/settings_screen.dart';
 import '../widgets/table_callendar.dart';
 
 class MainPage extends StatefulWidget {
@@ -37,6 +38,17 @@ class _MainPageState extends State<MainPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {
+                _navigateToSettings(context);
+              },
+              icon: Icon(
+                Icons.menu,
+                color: Theme.of(context).primaryColor,
+              ),
+            )
+          ],
           title: Text(
             "Muzyczny Kalendarz",
             style: TextStyle(
@@ -45,8 +57,17 @@ class _MainPageState extends State<MainPage> {
           ),
           backgroundColor: Theme.of(context).accentColor,
         ),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         body: !_isLoaded ? Center() : CustomTableCalendar(),
+      ),
+    );
+  }
+
+  void _navigateToSettings(BuildContext ctx) {
+    Navigator.push(
+      ctx,
+      MaterialPageRoute(
+        builder: (context) => SettingsScreen(),
       ),
     );
   }

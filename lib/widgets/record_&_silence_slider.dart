@@ -86,14 +86,14 @@ class _RecordSilenceSliderState extends State<RecordSilenceSlider> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(CommunityMaterialIcons.music_off, color: Colors.red),
+            Icon(CommunityMaterialIcons.headphones_off, color: Colors.red),
             SizedBox(
               width: MediaQuery.of(context).size.width *
                   (MediaQuery.of(context).orientation == Orientation.portrait
                       ? 0.7
                       : 0.25),
             ),
-            Icon(CommunityMaterialIcons.music, color: Colors.green),
+            Icon(CommunityMaterialIcons.headphones, color: Colors.green),
           ],
         )
       ],

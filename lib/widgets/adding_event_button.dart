@@ -12,6 +12,7 @@ class AddingEventButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
+      clipBehavior: Clip.antiAlias,
       onPressed: () => _navigatorToAddingScreen(context),
       icon: Icon(
         CommunityMaterialIcons.violin,
