@@ -54,7 +54,7 @@ class _RecordSilenceSliderState extends State<RecordSilenceSlider> {
               ),
             ),
             AnimatedContainer(
-              duration: Duration(milliseconds: 50),
+              duration: Duration(milliseconds: 100),
               width: MediaQuery.of(context).size.width *
                   (MediaQuery.of(context).orientation == Orientation.portrait
                       ? 0.4
