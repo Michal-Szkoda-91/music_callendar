@@ -22,7 +22,8 @@ class DefaultBuilder extends StatefulWidget {
 class _DefaultBuilderState extends State<DefaultBuilder> {
   final GlobalMethods globalMethods = GlobalMethods();
 
-  MusicEvent event = MusicEvent(id: '', playTime: 0, targetTime: 0, generalTime: 0, note: '');
+  MusicEvent event =
+      MusicEvent(id: '', playTime: 0, targetTime: 0, generalTime: 0, note: '');
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class _DefaultBuilderState extends State<DefaultBuilder> {
     Face face = globalMethods.setFace(
         targetTime: event.targetTime, playTime: event.playTime);
     return BuilderCallendarContainer(
-      color: Colors.grey,
+      color: Colors.grey.shade400,
       day: widget.day,
       child: event.id == ''
           ? Center()

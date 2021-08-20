@@ -35,7 +35,7 @@ class _HolidayBuilderState extends State<HolidayBuilder> {
     Face face = globalMethods.setFace(
         targetTime: event.targetTime, playTime: event.playTime);
     return BuilderCallendarContainer(
-      color: Colors.red,
+      color: Colors.red.shade200,
       day: widget.day,
       child: event.id == ''
           ? Center()
