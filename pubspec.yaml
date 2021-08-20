@@ -39,6 +39,7 @@ dependencies:
   wakelock: ^0.5.3+3
   record: ^3.0.0
   syncfusion_flutter_sliders: ^19.2.51
+  flutter_native_splash: ^1.2.1
 
 
 
@@ -55,6 +56,10 @@ flutter_icons:
   image_path: "assets/icon/icon_louncher.png"
   adaptive_icon_background: "#191919"
   adaptive_icon_foreground: "assets/icon/icon_louncher.png"
+
+flutter_native_splash:
+  color: "#d1eef5"
+  image: "assets/icon/splash.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
