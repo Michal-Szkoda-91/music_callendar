@@ -40,6 +40,7 @@ dependencies:
   record: ^3.0.0
   syncfusion_flutter_sliders: ^19.2.51
   flutter_native_splash: ^1.2.1
+  url_launcher: ^6.0.9
 
 
 

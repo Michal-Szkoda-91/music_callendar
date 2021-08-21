@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/settings_screen_widgets/policy.dart';
 import '../../widgets/settings_screen_widgets/silence_time_setting.dart';
 import '../../widgets/settings_screen_widgets/record_time_setting.dart';
 
@@ -32,6 +33,7 @@ class SettingsScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              PolicyPrivacySetting(),
               RecordTimeSetting(),
               StopRecordTimeSetting(),
             ],
