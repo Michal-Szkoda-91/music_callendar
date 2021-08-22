@@ -25,12 +25,24 @@ class _RecordTimeSettingState extends State<RecordTimeSetting> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        shadowColor: Theme.of(context).primaryColor,
         color: Theme.of(context).backgroundColor,
-        elevation: 12,
+        elevation: 6,
         child: ListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
           contentPadding: EdgeInsets.all(6),
           tileColor: Theme.of(context).backgroundColor,
-          title: Text('Opóźnienie nagrywania'),
+          title: Text(
+            'Opóźnienie nagrywania',
+            style: TextStyle(
+              color: Theme.of(context).textTheme.headline1!.color,
+            ),
+          ),
           leading: CustomToolTip(
             content: text,
           ),
@@ -46,9 +58,11 @@ class _RecordTimeSettingState extends State<RecordTimeSetting> {
                 dropdownColor: Theme.of(context).backgroundColor,
                 style: TextStyle(
                   fontSize: 16,
-                  color: Theme.of(context).textTheme.headline2!.color,
+                  color: Theme.of(context).textTheme.headline1!.color,
                 ),
                 underline: Container(height: 0),
+                iconDisabledColor: Theme.of(context).textTheme.headline1!.color,
+                iconEnabledColor: Theme.of(context).textTheme.headline1!.color,
                 value: _actualValue,
                 onChanged: (String? newValue) {
                   setState(() {
@@ -61,7 +75,12 @@ class _RecordTimeSettingState extends State<RecordTimeSetting> {
                   (String value) {
                     return DropdownMenuItem(
                       value: value,
-                      child: Text(value),
+                      child: Text(
+                        value,
+                        style: TextStyle(
+                          color: Theme.of(context).textTheme.headline1!.color,
+                        ),
+                      ),
                     );
                   },
                 ).toList(),

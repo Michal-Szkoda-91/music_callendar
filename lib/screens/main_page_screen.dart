@@ -59,7 +59,7 @@ class _MainPageState extends State<MainPage> {
           title: Text(
             "Muzyczny Kalendarz",
             style: TextStyle(
-              color: Theme.of(context).textTheme.headline1!.color,
+              color: Theme.of(context).primaryColor,
             ),
           ),
           backgroundColor: Theme.of(context).accentColor,
