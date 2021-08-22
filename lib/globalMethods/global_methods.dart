@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 
 class GlobalMethods {
   //methods which is setting a color and face icon depends on play time and targetTime proporcion
-  Face setFace({required int targetTime, required int playTime}) {
+  Face setFace(
+      {required int targetTime,
+      required int playTime,
+      required BuildContext context}) {
     double proporcion = targetTime / playTime;
     Face face = Face(
       color: Colors.red,
@@ -12,7 +15,7 @@ class GlobalMethods {
     );
     if (proporcion > 3.3) {
       face = Face(
-        color: Colors.red,
+        color: Theme.of(context).errorColor,
         icon: CommunityMaterialIcons.emoticon_sad,
       );
     } else if (proporcion <= 3.3 && proporcion > 1) {
@@ -22,7 +25,7 @@ class GlobalMethods {
       );
     } else {
       face = Face(
-        color: Colors.green,
+        color: Theme.of(context).hoverColor,
         icon: CommunityMaterialIcons.emoticon,
       );
     }

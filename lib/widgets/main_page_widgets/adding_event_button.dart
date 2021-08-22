@@ -17,11 +17,13 @@ class AddingEventButton extends StatelessWidget {
       icon: Icon(
         CommunityMaterialIcons.violin,
         size: 30,
+        color: Theme.of(context).accentColor,
       ),
-      label: Text("Rozpocznij Grę"),
-      style: TextButton.styleFrom(
-        textStyle: TextStyle(
+      label: Text(
+        "Rozpocznij Grę",
+        style: TextStyle(
           fontSize: 25,
+          color: Theme.of(context).accentColor,
         ),
       ),
     );

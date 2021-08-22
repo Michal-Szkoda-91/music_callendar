@@ -18,9 +18,10 @@ class BuilderCallendarContainer extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       decoration: BoxDecoration(
+        color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: Colors.black,
+          color: Theme.of(context).primaryColor,
           width: 0.5,
         ),
       ),
@@ -40,6 +41,9 @@ class BuilderCallendarContainer extends StatelessWidget {
               alignment: Alignment.center,
               child: Text(
                 day.day.toString(),
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.headline1!.color,
+                ),
               ),
             ),
           ),

@@ -33,9 +33,12 @@ class _DefaultBuilderState extends State<DefaultBuilder> {
     } catch (e) {}
 
     Face face = globalMethods.setFace(
-        targetTime: event.targetTime, playTime: event.playTime);
+      targetTime: event.targetTime,
+      playTime: event.playTime,
+      context: context,
+    );
     return BuilderCallendarContainer(
-      color: Colors.grey.shade400,
+      color: Theme.of(context).cardColor,
       day: widget.day,
       child: event.id == ''
           ? Center()
