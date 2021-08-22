@@ -15,7 +15,7 @@ class GlobalMethods {
         color: Colors.red,
         icon: CommunityMaterialIcons.emoticon_sad,
       );
-    } else if (proporcion <= 3.3 && proporcion >= 1.2) {
+    } else if (proporcion <= 3.3 && proporcion > 1) {
       face = Face(
         color: Colors.orange,
         icon: CommunityMaterialIcons.emoticon_neutral,
