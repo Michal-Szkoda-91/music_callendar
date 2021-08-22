@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../../models/music_day_provider.dart';
@@ -26,29 +27,45 @@ class _SensitiveSliderState extends State<SensitiveSlider> {
           Text(
             "Czułość",
             style: TextStyle(
+              color: Theme.of(context).textTheme.headline1!.color,
               fontSize: 12,
             ),
           ),
-          SfSlider.vertical(
-            showDividers: true,
-            value: _sliderValue,
-            onChanged: (value) {
-              Provider.of<MusicProvider>(context, listen: false)
-                  .setSensitive(value);
-              setState(() {
-                _sliderValue = value;
-              });
-            },
-            max: 20,
-            min: 0,
-            interval: 20,
-            showLabels: true,
-            labelFormatterCallback:
-                (dynamic actualValue, String formattedText) {
-              return actualValue == 20 ? '\max' : '\min';
-            },
-            activeColor: Theme.of(context).accentColor,
-            inactiveColor: Theme.of(context).primaryColor,
+          Center(
+            child: SfSliderTheme(
+              data: SfSliderThemeData(
+                activeLabelStyle: TextStyle(
+                  color: Theme.of(context).textTheme.headline1!.color,
+                  fontSize: 12,
+                ),
+                inactiveLabelStyle: TextStyle(
+                  color: Theme.of(context).textTheme.headline1!.color,
+                  fontSize: 12,
+                ),
+              ),
+              child: SfSlider.vertical(
+                showDividers: true,
+                value: _sliderValue,
+                onChanged: (value) {
+                  Provider.of<MusicProvider>(context, listen: false)
+                      .setSensitive(value);
+                  setState(() {
+                    _sliderValue = value;
+                  });
+                },
+                max: 20,
+                min: 0,
+                interval: 20,
+                showLabels: true,
+                showTicks: true,
+                labelFormatterCallback:
+                    (dynamic actualValue, String formattedText) {
+                  return actualValue == 20 ? '\max' : '\min';
+                },
+                activeColor: Theme.of(context).accentColor,
+                inactiveColor: Theme.of(context).backgroundColor,
+              ),
+            ),
           ),
         ],
       ),

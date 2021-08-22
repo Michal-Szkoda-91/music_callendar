@@ -7,11 +7,7 @@ class SaveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      
       style: ButtonStyle(
-        foregroundColor: MaterialStateProperty.all<Color>(
-          Theme.of(context).primaryColor,
-        ),
         backgroundColor: MaterialStateProperty.all<Color>(
           Theme.of(context).accentColor,
         ),
@@ -20,8 +16,16 @@ class SaveButton extends StatelessWidget {
         function();
         Navigator.of(context).pop();
       },
-      icon: Icon(Icons.save),
-      label: Text("Zapisz wynik"),
+      icon: Icon(
+        Icons.save,
+        color: Theme.of(context).textTheme.headline1!.color,
+      ),
+      label: Text(
+        "Zapisz wynik",
+        style: TextStyle(
+          color: Theme.of(context).textTheme.headline1!.color,
+        ),
+      ),
     );
   }
 }

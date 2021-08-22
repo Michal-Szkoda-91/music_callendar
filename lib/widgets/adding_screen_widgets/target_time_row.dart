@@ -41,7 +41,7 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
                   _showTimePicker(targetPlayTime);
                 },
                 child: Card(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).cardColor,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -62,6 +62,7 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
     return TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w400,
+      color: Theme.of(context).textTheme.headline1!.color,
     );
   }
 
@@ -69,6 +70,7 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
     return TextStyle(
       fontSize: 25,
       fontWeight: FontWeight.bold,
+      color: Theme.of(context).textTheme.headline1!.color,
     );
   }
 
@@ -81,39 +83,34 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  const SizedBox(height: 20),
                   Text(
-                    'Ustaw długość gry na instrumencie',
+                    'Ustaw planowaną na dziś długość gry na instrumencie',
                     style: _customStyleSmall(),
                     textAlign: TextAlign.center,
                   ),
-                  CupertinoTimerPicker(
-                    mode: CupertinoTimerPickerMode.hms,
-                    initialTimerDuration: actualDuration,
-                    onTimerDurationChanged: (value) {
-                      setState(() {
-                        targetPlayTime = value;
-                      });
-                    },
+                  const SizedBox(height: 20),
+                  CupertinoTheme(
+                    data: CupertinoThemeData(
+                        textTheme: CupertinoTextThemeData(
+                            textStyle: TextStyle(
+                      color: Theme.of(context).textTheme.headline1!.color,
+                    ))),
+                    child: CupertinoTimerPicker(
+                      mode: CupertinoTimerPickerMode.hms,
+                      initialTimerDuration: actualDuration,
+                      onTimerDurationChanged: (value) {
+                        setState(() {
+                          targetPlayTime = value;
+                        });
+                      },
+                    ),
                   ),
+                  const SizedBox(height: 20),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(ctx).pop();
-                            //Providers
-                            Provider.of<MusicProvider>(context, listen: false)
-                                .setTargetTime(targetPlayTime.inSeconds);
-                          },
-                          child: Text(
-                            "Zapisz",
-                            style: TextStyle(
-                              color: Theme.of(context).accentColor,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
                         TextButton(
                           onPressed: () {
                             setState(() {
@@ -124,7 +121,25 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
                           child: Text(
                             "Anuluj",
                             style: TextStyle(
-                              color: Theme.of(context).accentColor,
+                              color:
+                                  Theme.of(context).textTheme.headline1!.color,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(ctx).pop();
+                            //Providers
+                            Provider.of<MusicProvider>(context, listen: false)
+                                .setTargetTime(targetPlayTime.inSeconds);
+                          },
+                          child: Text(
+                            "Zapisz",
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.headline1!.color,
                               fontSize: 18,
                             ),
                           ),

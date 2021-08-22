@@ -20,7 +20,7 @@ class _RecordSilenceSliderState extends State<RecordSilenceSlider> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AnimatedContainer(
-              duration: Duration(milliseconds: 50),
+              duration: Duration(milliseconds: 20),
               width: MediaQuery.of(context).size.width *
                   (MediaQuery.of(context).orientation == Orientation.portrait
                       ? 0.4
@@ -35,33 +35,26 @@ class _RecordSilenceSliderState extends State<RecordSilenceSlider> {
                   begin: Alignment.centerRight,
                   end: Alignment.centerLeft,
                   stops: [
-                    0,
                     Provider.of<MusicProvider>(context, listen: false)
-                        .silenceCounter
+                            .silenceCounter +
+                        0.05,
+                    0,
                   ],
                   colors: [
                     Colors.red,
-                    Theme.of(context).primaryColor,
+                    Theme.of(context).backgroundColor,
                   ],
                 ),
               ),
             ),
-            Container(
-              width: 20,
-              height: 20,
-              decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
-              ),
-            ),
             AnimatedContainer(
-              duration: Duration(milliseconds: 100),
+              duration: Duration(milliseconds: 20),
               width: MediaQuery.of(context).size.width *
                   (MediaQuery.of(context).orientation == Orientation.portrait
                       ? 0.4
                       : 0.15),
               height: 20,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(10),
                   bottomRight: Radius.circular(10),
@@ -70,13 +63,14 @@ class _RecordSilenceSliderState extends State<RecordSilenceSlider> {
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   stops: [
-                    0,
                     Provider.of<MusicProvider>(context, listen: false)
-                        .recordCounter
+                            .recordCounter +
+                        0.05,
+                    0,
                   ],
                   colors: [
                     Colors.green,
-                    Theme.of(context).primaryColor,
+                    Theme.of(context).backgroundColor,
                   ],
                 ),
               ),

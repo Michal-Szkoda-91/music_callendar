@@ -59,7 +59,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: Theme.of(context).textTheme.headline1!.color,
+                color: Theme.of(context).primaryColor,
               ),
               onPressed: () {
                 _showExitQuestion(context);
@@ -100,9 +100,10 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
-                              padding: EdgeInsets.zero,
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: _createSaveDeleteButton()),
+                            padding: EdgeInsets.zero,
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            child: _createSaveDeleteButton(),
+                          ),
                           TargetTimeRow(
                             targetTime: widget.musicEvent.targetTime,
                           )
@@ -166,12 +167,17 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
       context: context,
       builder: (ctx) {
         return SimpleDialog(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).cardColor,
           children: [
             Text(
               'Czy napewno chesz wyjśc bez zapisywania danych?',
               textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Theme.of(context).textTheme.headline1!.color,
+                fontSize: 16,
+              ),
             ),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -184,11 +190,12 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                   child: Text(
                     "Wyjdź",
                     style: TextStyle(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).textTheme.headline1!.color,
                       fontSize: 18,
                     ),
                   ),
                 ),
+                const SizedBox(width: 20),
                 TextButton(
                   onPressed: () {
                     var data =
@@ -221,7 +228,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                   child: Text(
                     "Zapisz",
                     style: TextStyle(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).textTheme.headline1!.color,
                       fontSize: 18,
                     ),
                   ),
