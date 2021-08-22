@@ -138,7 +138,7 @@ class InfoEventCard extends StatelessWidget {
 
     if (proporcion > 3.3) {
       return Colors.red;
-    } else if (proporcion <= 3.3 && proporcion >= 1.2) {
+    } else if (proporcion <= 3.3 && proporcion > 1) {
       return Colors.orange;
     } else {
       return Colors.green;
