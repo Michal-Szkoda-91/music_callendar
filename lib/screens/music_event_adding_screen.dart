@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../widgets/brighnes_icon.dart';
 import '../screens/settings_screen.dart';
 import '../databaseHelper/databaseHelper.dart';
 import '../models/music_day_event.dart';
@@ -46,6 +47,8 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
         child: Scaffold(
           appBar: AppBar(
             actions: [
+              BrightnessIcon(),
+              const SizedBox(width: 12),
               IconButton(
                 onPressed: () {
                   _navigateToSettings(context);

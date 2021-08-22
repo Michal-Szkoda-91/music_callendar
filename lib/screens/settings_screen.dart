@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/brighnes_icon.dart';
 import '../../widgets/settings_screen_widgets/policy.dart';
 import '../../widgets/settings_screen_widgets/silence_time_setting.dart';
 import '../../widgets/settings_screen_widgets/record_time_setting.dart';
@@ -12,6 +13,10 @@ class SettingsScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          actions: [
+            BrightnessIcon(),
+            const SizedBox(width: 12),
+          ],
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
