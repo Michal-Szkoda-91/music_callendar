@@ -33,7 +33,7 @@ class Equalizer extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           gradient: RadialGradient(
-            stops: [_isRecording ? 0.7 : 0.0, 1],
+            stops: [_isRecording ? 0.9 : 0.3, 1],
             colors: [
               _isRecording ? Colors.red : Colors.redAccent,
               Theme.of(context).cardColor,

@@ -21,5 +21,18 @@ class MyDarkLightThemes {
     ),
   );
 
-  static final lightTheme = ThemeData();
+  static final lightTheme = ThemeData(
+    primaryColor: Colors.grey[900],
+    scaffoldBackgroundColor: Colors.grey.shade200,
+    backgroundColor: Colors.grey[100],
+    cardColor: Colors.grey.shade400,
+    accentColor: Colors.purple[300],
+    errorColor: Colors.red.shade500,
+    hoverColor: Colors.green.shade500,
+    textTheme: TextTheme(
+      headline1: TextStyle(
+        color: Colors.grey[800],
+      ),
+    ),
+  );
 }

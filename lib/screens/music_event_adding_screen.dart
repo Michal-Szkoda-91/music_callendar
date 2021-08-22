@@ -68,7 +68,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
             title: Text(
               _appBarDate,
               style: TextStyle(
-                color: Theme.of(context).textTheme.headline1!.color,
+                color: Theme.of(context).primaryColor,
               ),
             ),
             backgroundColor: Theme.of(context).accentColor,

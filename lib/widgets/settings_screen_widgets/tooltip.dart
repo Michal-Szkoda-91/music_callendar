@@ -17,20 +17,22 @@ class _CustomToolTipState extends State<CustomToolTip> {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3),
+            color: Theme.of(context).accentColor,
+            spreadRadius: 2,
+            blurRadius: 2,
+            offset: Offset(0, 0),
           ),
         ],
         borderRadius: BorderRadius.circular(15),
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).cardColor,
       ),
       margin: EdgeInsets.all(6.0),
       padding: EdgeInsets.all(12.0),
       key: key,
       message: widget.content,
-      textStyle: TextStyle(color: Theme.of(context).textTheme.headline2!.color),
+      textStyle: TextStyle(
+        color: Theme.of(context).textTheme.headline1!.color,
+      ),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
@@ -40,7 +42,7 @@ class _CustomToolTipState extends State<CustomToolTip> {
         child: Icon(
           Icons.info,
           size: 30,
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).textTheme.headline1!.color,
         ),
       ),
     );
