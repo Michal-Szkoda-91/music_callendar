@@ -41,6 +41,7 @@ dependencies:
   syncfusion_flutter_sliders: ^19.2.51
   flutter_native_splash: ^1.2.1
   url_launcher: ^6.0.9
+  syncfusion_flutter_core: ^19.2.56
 
 
 

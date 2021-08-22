@@ -16,7 +16,7 @@ class MyDarkLightThemes {
     hoverColor: Colors.green.shade300,
     textTheme: TextTheme(
       headline1: TextStyle(
-        color: Colors.grey[300],
+        color: Colors.grey[100],
       ),
     ),
   );

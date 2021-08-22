@@ -29,15 +29,23 @@ class _DeleteButtonState extends State<DeleteButton> {
           Theme.of(context).primaryColor,
         ),
         backgroundColor: MaterialStateProperty.all<Color>(
-          Colors.red,
+          Theme.of(context).errorColor,
         ),
       ),
       onPressed: () {
         _deleteEvent(widget.previousContext);
         // Navigator.of(context).pop();
       },
-      icon: Icon(Icons.delete),
-      label: Text("Usuń wydarz."),
+      icon: Icon(
+        Icons.delete,
+        color: Theme.of(context).textTheme.headline1!.color,
+      ),
+      label: Text(
+        "Usuń wydarz.",
+        style: TextStyle(
+          color: Theme.of(context).textTheme.headline1!.color,
+        ),
+      ),
     );
   }
 
@@ -46,27 +54,20 @@ class _DeleteButtonState extends State<DeleteButton> {
         context: previousContext,
         builder: (ctx) {
           return SimpleDialog(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).cardColor,
             children: [
               Text(
                 'Czy napewno chesz usunąć wydarzenie?',
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.headline1!.color,
+                  fontSize: 16,
+                ),
               ),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(ctx).pop();
-                    },
-                    child: Text(
-                      "Anuluj",
-                      style: TextStyle(
-                        color: Theme.of(context).accentColor,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
                   TextButton(
                     onPressed: () {
                       var data =
@@ -83,7 +84,20 @@ class _DeleteButtonState extends State<DeleteButton> {
                     child: Text(
                       "Usuń",
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Theme.of(context).textTheme.headline1!.color,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                    child: Text(
+                      "Anuluj",
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.headline1!.color,
                         fontSize: 18,
                       ),
                     ),

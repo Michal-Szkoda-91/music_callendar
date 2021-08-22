@@ -21,6 +21,7 @@ class ActualPlayTimeRow extends StatelessWidget {
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
+            color: Theme.of(context).textTheme.headline1!.color,
           ),
           textAlign: TextAlign.center,
         ),
@@ -39,7 +40,9 @@ class ActualPlayTimeRow extends StatelessWidget {
             style: TextStyle(
               fontSize: 35,
               fontWeight: FontWeight.bold,
-              color: _isRecording ? Colors.black : Colors.grey[350],
+              color: _isRecording
+                  ? Theme.of(context).textTheme.headline1!.color
+                  : Theme.of(context).cardColor,
             ),
           ),
         ),

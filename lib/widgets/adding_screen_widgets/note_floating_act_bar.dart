@@ -37,7 +37,9 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
       child: AnimatedContainer(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: Theme.of(context).accentColor,
+          color: _selected
+              ? Theme.of(context).cardColor
+              : Theme.of(context).accentColor,
         ),
         width: _selected
             ? MediaQuery.of(context).size.width *
@@ -77,7 +79,10 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                             Text(
                               "Notatki",
                               style: TextStyle(
-                                color: Theme.of(context).primaryColor,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .color,
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -97,7 +102,10 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                               },
                               child: Icon(
                                 Icons.close,
-                                color: Theme.of(context).primaryColor,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .color,
                               ),
                             )
                           ],
@@ -108,7 +116,7 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).backgroundColor,
                       ),
                       width: _selected
                           ? MediaQuery.of(context).size.width - 50
@@ -125,29 +133,29 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                         expands: true,
                         maxLines: null,
                         minLines: null,
-                        cursorColor: Theme.of(context).accentColor,
+                        cursorColor: Theme.of(context).primaryColor,
                         style: TextStyle(
-                          color: Theme.of(context).accentColor,
+                          color: Theme.of(context).primaryColor,
                           fontSize: 18,
                         ),
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(
-                              color: Theme.of(context).accentColor,
+                              color: Theme.of(context).primaryColor,
                               width: 2,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),
                             borderSide: BorderSide(
-                              color: Colors.grey,
+                              color: Theme.of(context).backgroundColor,
                               width: 2,
                             ),
                           ),
                           hintText: 'Wpisz dowolne notatki...',
                           hintStyle: TextStyle(
-                            color: Colors.grey,
+                            color: Theme.of(context).cardColor,
                           ),
                         ),
                       ),
@@ -179,12 +187,18 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                               },
                               icon: Icon(
                                 Icons.save,
-                                color: Theme.of(context).primaryColor,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline1!
+                                    .color,
                               ),
                               label: Text(
                                 "Zapisz",
                                 style: TextStyle(
-                                  color: Theme.of(context).primaryColor,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .headline1!
+                                      .color,
                                 ),
                               ),
                             ),

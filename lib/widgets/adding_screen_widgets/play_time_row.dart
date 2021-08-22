@@ -102,18 +102,20 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
                     children: [
                       SensitiveSlider(),
                       Equalizer(
-                          equalizeSize: _equalizeSize,
-                          isRecording: _isRecording),
+                        equalizeSize: _equalizeSize,
+                        isRecording: _isRecording,
+                      ),
                     ],
                   ),
                 ],
               ),
-              SizedBox(width: 30),
+              const SizedBox(width: 30),
               Column(
                 children: [
                   ActualPlayTimeRow(
-                      actualPlayTime: actualPlayTime,
-                      isRecording: _isRecording),
+                    actualPlayTime: actualPlayTime,
+                    isRecording: _isRecording,
+                  ),
                   const SizedBox(height: 20),
                   _createRowGenerealTime(context),
                   const SizedBox(height: 20),
@@ -133,26 +135,37 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
+            color: Theme.of(context).textTheme.headline1!.color,
           ),
           textAlign: TextAlign.center,
         ),
         const SizedBox(width: 20),
         !_isListen
             ? InkWell(
-                child: Icon(Icons.play_arrow,
-                    size: 45, color: Theme.of(context).accentColor),
+                child: Icon(
+                  Icons.play_arrow,
+                  size: 45,
+                  color: Theme.of(context).accentColor,
+                ),
                 onTap: startListen,
               )
             : InkWell(
-                child: Icon(Icons.stop,
-                    size: 45, color: Theme.of(context).accentColor),
+                child: Icon(
+                  Icons.stop,
+                  size: 45,
+                  color: Theme.of(context).accentColor,
+                ),
                 onTap: _stopListen,
               ),
         const SizedBox(width: 20),
         Text(
           '${generalPlayTime.toString().split(".")[0]}',
           style: TextStyle(
-              fontSize: 20, color: _isListen ? Colors.black : Colors.grey[350]),
+            fontSize: 24,
+            color: _isListen
+                ? Theme.of(context).textTheme.headline1!.color
+                : Theme.of(context).cardColor,
+          ),
         ),
       ],
     );
