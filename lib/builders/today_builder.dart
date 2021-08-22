@@ -33,7 +33,10 @@ class _TodayBuilderState extends State<TodayBuilder> {
     } catch (e) {}
 
     Face face = globalMethods.setFace(
-        targetTime: event.targetTime, playTime: event.playTime);
+      targetTime: event.targetTime,
+      playTime: event.playTime,
+      context: context,
+    );
     return BuilderCallendarContainer(
       color: Colors.blue,
       day: widget.day,

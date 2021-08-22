@@ -31,11 +31,13 @@ class _HolidayBuilderState extends State<HolidayBuilder> {
     try {
       event = data.findById(DateFormat.yMd('pl_PL').format(widget.day));
     } catch (e) {}
-
     Face face = globalMethods.setFace(
-        targetTime: event.targetTime, playTime: event.playTime);
+      targetTime: event.targetTime,
+      playTime: event.playTime,
+      context: context,
+    );
     return BuilderCallendarContainer(
-      color: Colors.red.shade200,
+      color: Theme.of(context).errorColor,
       day: widget.day,
       child: event.id == ''
           ? Center()

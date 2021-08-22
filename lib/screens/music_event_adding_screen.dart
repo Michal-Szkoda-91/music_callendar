@@ -73,7 +73,6 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
             ),
             backgroundColor: Theme.of(context).accentColor,
           ),
-          backgroundColor: Theme.of(context).backgroundColor,
           body: SingleChildScrollView(
             child: MediaQuery.of(context).orientation == Orientation.portrait
                 // Portrait MODE

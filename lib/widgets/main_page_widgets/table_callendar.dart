@@ -89,9 +89,29 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
       locale: 'pl_PL',
       calendarFormat: CalendarFormat.month,
       headerStyle: HeaderStyle(
+        titleTextStyle: TextStyle(
+          color: Theme.of(context).textTheme.headline1!.color,
+          fontSize: 18,
+        ),
+        leftChevronIcon: Icon(
+          Icons.chevron_left,
+          color: Theme.of(context).primaryColor,
+        ),
+        rightChevronIcon: Icon(
+          Icons.chevron_right,
+          color: Theme.of(context).primaryColor,
+        ),
         formatButtonVisible: false,
       ),
       startingDayOfWeek: StartingDayOfWeek.monday,
+      daysOfWeekStyle: DaysOfWeekStyle(
+        weekdayStyle: TextStyle(
+          color: Theme.of(context).primaryColor,
+        ),
+        weekendStyle: TextStyle(
+          color: Theme.of(context).errorColor,
+        ),
+      ),
       focusedDay: _focusedDay,
       firstDay: DateTime.utc(2000),
       lastDay: DateTime.utc(2200),

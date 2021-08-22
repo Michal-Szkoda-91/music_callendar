@@ -32,7 +32,10 @@ class _SelectedDayBuilderState extends State<SelectedDayBuilder> {
     } catch (e) {}
 
     Face face = globalMethods.setFace(
-        targetTime: event.targetTime, playTime: event.playTime);
+      targetTime: event.targetTime,
+      playTime: event.playTime,
+      context: context,
+    );
     return BuilderCallendarContainer(
       color: Theme.of(context).accentColor,
       day: widget.day,

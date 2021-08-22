@@ -48,9 +48,13 @@ class InfoEventCard extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    stops: [0.1, 1],
+                    stops: [0.4, 1],
                     colors: [
-                      chooseColor(musicEvent.targetTime, musicEvent.playTime),
+                      chooseColor(
+                        musicEvent.targetTime,
+                        musicEvent.playTime,
+                        context,
+                      ),
                       Theme.of(context).backgroundColor,
                     ],
                   ),
@@ -61,6 +65,7 @@ class InfoEventCard extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
@@ -68,6 +73,7 @@ class InfoEventCard extends StatelessWidget {
                 'Czas gry: ',
                 style: TextStyle(
                   fontSize: 15,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               Text(
@@ -75,6 +81,7 @@ class InfoEventCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor,
                 ),
               ),
               ExpansionTile(
@@ -84,21 +91,21 @@ class InfoEventCard extends StatelessWidget {
                 title: musicEvent.note == ''
                     ? Text(
                         'brak notatek',
-                        style: _noteStyle(),
+                        style: _noteStyle(context),
                       )
                     : musicEvent.note.length < 50
                         ? Text(
                             "${musicEvent.note}",
-                            style: _noteStyle(),
+                            style: _noteStyle(context),
                           )
                         : Text(
                             "${musicEvent.note.substring(0, 50)}...",
-                            style: _noteStyle(),
+                            style: _noteStyle(context),
                           ),
                 children: [
                   Text(
                     "${musicEvent.note}",
-                    style: _noteStyle(),
+                    style: _noteStyle(context),
                   ),
                 ],
               ),
@@ -109,9 +116,10 @@ class InfoEventCard extends StatelessWidget {
     );
   }
 
-  TextStyle _noteStyle() {
+  TextStyle _noteStyle(BuildContext context) {
     return TextStyle(
       fontSize: 16,
+      color: Theme.of(context).primaryColor,
     );
   }
 
@@ -133,15 +141,15 @@ class InfoEventCard extends StatelessWidget {
     );
   }
 
-  Color chooseColor(int target, int play) {
+  Color chooseColor(int target, int play, BuildContext context) {
     double proporcion = target / play;
 
     if (proporcion > 3.3) {
-      return Colors.red;
+      return Theme.of(context).errorColor;
     } else if (proporcion <= 3.3 && proporcion > 1) {
       return Colors.orange;
     } else {
-      return Colors.green;
+      return Theme.of(context).hoverColor;
     }
   }
 }
