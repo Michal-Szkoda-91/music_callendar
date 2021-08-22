@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThemeProviders()),
       ],
       builder: (context, _) {
-        // final themeProvider = Provider.of<ThemeProviders>(context);
+        final themeProvider = Provider.of<ThemeProviders>(context);
         return MaterialApp(
           localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
           ],
           debugShowCheckedModeBanner: false,
           title: 'Music Callendar',
-          themeMode: ThemeMode.system,
+          themeMode: themeProvider.themeMode,
           theme: MyDarkLightThemes.lightTheme,
           darkTheme: MyDarkLightThemes.darkTheme,
           home: MainPage(),

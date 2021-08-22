@@ -1,4 +1,6 @@
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:music_callendar/widgets/brighnes_icon.dart';
 import 'package:provider/provider.dart';
 
 import '../models/setting_providers.dart';
@@ -46,6 +48,8 @@ class _MainPageState extends State<MainPage> {
       child: Scaffold(
         appBar: AppBar(
           actions: [
+            BrightnessIcon(),
+            const SizedBox(width: 12),
             IconButton(
               onPressed: () {
                 _navigateToSettings(context);
