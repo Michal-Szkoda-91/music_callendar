@@ -154,7 +154,7 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                               width: 2,
                             ),
                           ),
-                          hintText: 'Wpisz dowolne notatki...',
+                          hintText: tr("FreeNotes"),
                           hintStyle: TextStyle(
                             color: Theme.of(context).cardColor,
                           ),
