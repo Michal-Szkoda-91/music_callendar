@@ -4,6 +4,7 @@ import '../widgets/brighnes_icon.dart';
 import '../../widgets/settings_screen_widgets/policy.dart';
 import '../../widgets/settings_screen_widgets/silence_time_setting.dart';
 import '../../widgets/settings_screen_widgets/record_time_setting.dart';
+import '../../widgets/settings_screen_widgets/autosave.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -37,9 +38,10 @@ class SettingsScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              PolicyPrivacySetting(),
               RecordTimeSetting(),
               StopRecordTimeSetting(),
+              AutosaveSetting(),
+              PolicyPrivacySetting(),
             ],
           ),
         ),
