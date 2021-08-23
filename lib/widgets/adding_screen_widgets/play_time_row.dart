@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:record/record.dart';
 
+import '../../models/music_day_event.dart';
+import '../../databaseHelper/databaseHelper.dart';
 import '../../models/setting_providers.dart';
 import '../../models/music_day_provider.dart';
 import 'actual_play_time_row.dart';
@@ -30,6 +32,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
   final _audioRecorder = Record();
   Amplitude? _amplitude;
   double _equalizeSize = 80;
+  DatabaseHelper helper = DatabaseHelper();
 
   Timer? _ampTimer;
   Timer? _durationStopTimer;
@@ -213,6 +216,15 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         actualPlayTime += Duration(seconds: 1);
         Provider.of<MusicProvider>(context, listen: false)
             .setPlayTime(actualPlayTime.inSeconds);
+        // Setting check if autosafe is active
+        //
+        //
+        if (Provider.of<SettingProvider>(context, listen: false)
+                .settingModel
+                .autoSaveIsOn ??
+            true) {
+          _saveData();
+        }
       }
     });
   }
@@ -299,6 +311,31 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
         });
       }
       _setDurationStartTimer();
+    });
+  }
+
+  void _saveData() {
+    var data = Provider.of<MusicProvider>(context, listen: false);
+    helper
+        .insertEvent(
+      MusicEvent(
+        id: data.temporaryMusicEvent.id,
+        playTime: data.temporaryMusicEvent.playTime,
+        generalTime: data.temporaryMusicEvent.generalTime,
+        targetTime: data.temporaryMusicEvent.targetTime,
+        note: data.temporaryMusicEvent.note,
+      ),
+    )
+        .then((_) {
+      Provider.of<MusicEvents>(context, listen: false).addEvent(
+        MusicEvent(
+          id: data.temporaryMusicEvent.id,
+          playTime: data.temporaryMusicEvent.playTime,
+          generalTime: data.temporaryMusicEvent.generalTime,
+          targetTime: data.temporaryMusicEvent.targetTime,
+          note: data.temporaryMusicEvent.note,
+        ),
+      );
     });
   }
 }

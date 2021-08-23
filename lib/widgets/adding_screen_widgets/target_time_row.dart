@@ -83,19 +83,26 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
                   Text(
                     'Ustaw planowaną na dziś długość gry na instrumencie',
                     style: _customStyleSmall(),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
                   CupertinoTheme(
                     data: CupertinoThemeData(
-                        textTheme: CupertinoTextThemeData(
-                            textStyle: TextStyle(
-                      color: Theme.of(context).textTheme.headline1!.color,
-                    ))),
+                      textTheme: CupertinoTextThemeData(
+                        pickerTextStyle: TextStyle(
+                          color: Theme.of(context).textTheme.headline1!.color,
+                          fontSize: 16,
+                        ),
+                        textStyle: TextStyle(
+                          color: Theme.of(context).textTheme.headline1!.color,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
                     child: CupertinoTimerPicker(
                       mode: CupertinoTimerPickerMode.hms,
                       initialTimerDuration: actualDuration,
@@ -106,7 +113,7 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 5),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,

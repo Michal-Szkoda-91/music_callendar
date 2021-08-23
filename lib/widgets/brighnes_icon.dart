@@ -23,6 +23,7 @@ class _BrightnessIconState extends State<BrightnessIcon> {
         themeProvider.isDarkMode
             ? CommunityMaterialIcons.brightness_4
             : CommunityMaterialIcons.brightness_5,
+        color: Theme.of(context).scaffoldBackgroundColor,
       ),
     );
   }
