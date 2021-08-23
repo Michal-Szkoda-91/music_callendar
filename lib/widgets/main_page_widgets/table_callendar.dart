@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +28,8 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
   DatabaseHelper helper = DatabaseHelper();
   late MusicEvent event =
       MusicEvent(id: '', playTime: 0, generalTime: 0, targetTime: 0, note: '');
+
+  String _locale = Platform.localeName;
 
   void getEvents(String id) async {
     event = MusicEvent(
@@ -86,7 +90,7 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
   TableCalendar<dynamic> _createTableCalendar() {
     return TableCalendar(
       availableGestures: AvailableGestures.horizontalSwipe,
-      locale: 'pl_PL',
+      locale: _locale,
       calendarFormat: CalendarFormat.month,
       headerStyle: HeaderStyle(
         titleTextStyle: TextStyle(

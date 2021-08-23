@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:music_callendar/widgets/brighnes_icon.dart';
 import 'package:provider/provider.dart';
@@ -60,7 +61,7 @@ class _MainPageState extends State<MainPage> {
             )
           ],
           title: Text(
-            "Muzyczny Kalendarz",
+            tr('title'),
             style: TextStyle(
               color: Theme.of(context).primaryColor,
             ),
