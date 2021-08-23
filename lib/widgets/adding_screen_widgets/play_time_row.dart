@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:record/record.dart';
@@ -134,7 +135,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Całkowity czas:',
+          tr("AllTime"),
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,

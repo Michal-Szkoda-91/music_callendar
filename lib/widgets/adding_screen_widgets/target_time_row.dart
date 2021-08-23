@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +33,7 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Cel:',
+                tr("Target"),
                 style: _customStyleSmall(),
               ),
               const SizedBox(width: 20),
@@ -85,7 +86,7 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
                 children: [
                   const SizedBox(height: 5),
                   Text(
-                    'Ustaw planowaną na dziś długość gry na instrumencie',
+                    tr("TimePickerTitle"),
                     style: _customStyleSmall(),
                     textAlign: TextAlign.center,
                   ),
@@ -126,7 +127,7 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
                             Navigator.of(ctx).pop();
                           },
                           child: Text(
-                            "Anuluj",
+                            tr("Cancel"),
                             style: TextStyle(
                               color:
                                   Theme.of(context).textTheme.headline1!.color,
@@ -143,7 +144,7 @@ class _TargetTimeRowState extends State<TargetTimeRow> {
                                 .setTargetTime(targetPlayTime.inSeconds);
                           },
                           child: Text(
-                            "Zapisz",
+                            tr("Save"),
                             style: TextStyle(
                               color:
                                   Theme.of(context).textTheme.headline1!.color,

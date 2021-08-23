@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,8 +11,7 @@ class StopRecordTimeSetting extends StatefulWidget {
 }
 
 class _StopRecordTimeSettingState extends State<StopRecordTimeSetting> {
-  final String text =
-      'Ustawia czas ciszy potrzebny do zatrzymania naliczania czasu gry na instrumencie.';
+  final String text = tr("SilenceTimeLatencyDescription");
 
   String _actualValue = '3 sec';
   @override
@@ -38,7 +38,7 @@ class _StopRecordTimeSettingState extends State<StopRecordTimeSetting> {
           contentPadding: EdgeInsets.all(6),
           tileColor: Theme.of(context).backgroundColor,
           title: Text(
-            'Opóźnienie zatrzymania nagrywania',
+            tr("SilenceTimeLatencyTitle"),
             style: TextStyle(
               color: Theme.of(context).textTheme.headline1!.color,
             ),

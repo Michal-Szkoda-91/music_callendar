@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,8 +12,7 @@ class AutosaveSetting extends StatefulWidget {
 }
 
 class _AutosaveSettingState extends State<AutosaveSetting> {
-  final String text =
-      'Jeśli opcja jest włączona program automatycznie raz na sekundę zapisuje dane dzięki czemu użytkownik nie traci postępu w czasie gry nawet przy nie oczekiwanym wyłączeniu aplikacji.';
+  final String text = tr("AutoSaveDescription");
 
   bool _actualValue = true;
   @override
@@ -40,7 +40,7 @@ class _AutosaveSettingState extends State<AutosaveSetting> {
           contentPadding: EdgeInsets.all(6),
           tileColor: Theme.of(context).backgroundColor,
           title: Text(
-            'Automatyczny zapis czasu gry',
+            tr("AutoSaveTitle"),
             style: TextStyle(
               color: Theme.of(context).textTheme.headline1!.color,
             ),

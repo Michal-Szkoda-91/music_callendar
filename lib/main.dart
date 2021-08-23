@@ -21,7 +21,7 @@ void main() async {
         Locale('de'),
         Locale('es'),
       ],
-      fallbackLocale: Locale('pl'),
+      fallbackLocale: Locale('en'),
       path: 'assets/langs',
     ),
   );

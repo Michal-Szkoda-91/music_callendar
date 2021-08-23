@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class SaveButton extends StatelessWidget {
@@ -21,7 +22,7 @@ class SaveButton extends StatelessWidget {
         color: Theme.of(context).textTheme.headline1!.color,
       ),
       label: Text(
-        "Zapisz wynik",
+        tr("Save"),
         style: TextStyle(
           color: Theme.of(context).textTheme.headline1!.color,
         ),

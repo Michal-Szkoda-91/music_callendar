@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,8 +11,7 @@ class RecordTimeSetting extends StatefulWidget {
 }
 
 class _RecordTimeSettingState extends State<RecordTimeSetting> {
-  final String text =
-      'Ustawia czas jaki aplikacja musi nasłuchiwać zanim zacznie się właściwe nagrywanie dźwięku i zliczanie czasu';
+  final String text = tr("RecordTimeLatencyDescription");
 
   String _actualValue = '3 sec';
   @override
@@ -38,7 +38,7 @@ class _RecordTimeSettingState extends State<RecordTimeSetting> {
           contentPadding: EdgeInsets.all(6),
           tileColor: Theme.of(context).backgroundColor,
           title: Text(
-            'Opóźnienie nagrywania',
+            tr("RecordTimeLatencyTitle"),
             style: TextStyle(
               color: Theme.of(context).textTheme.headline1!.color,
             ),

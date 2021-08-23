@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -173,7 +174,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
           backgroundColor: Theme.of(context).cardColor,
           children: [
             Text(
-              'Czy napewno chesz wyjśc bez zapisywania danych?',
+              tr("NoSaveQuestion"),
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Theme.of(context).textTheme.headline1!.color,
@@ -191,7 +192,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                     Navigator.of(ctx).pop();
                   },
                   child: Text(
-                    "Wyjdź",
+                    tr("Quit"),
                     style: TextStyle(
                       color: Theme.of(context).textTheme.headline1!.color,
                       fontSize: 18,
@@ -229,7 +230,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                     Navigator.of(ctx).pop();
                   },
                   child: Text(
-                    "Zapisz",
+                    tr("Save"),
                     style: TextStyle(
                       color: Theme.of(context).textTheme.headline1!.color,
                       fontSize: 18,

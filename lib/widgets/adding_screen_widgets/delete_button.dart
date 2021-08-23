@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +42,7 @@ class _DeleteButtonState extends State<DeleteButton> {
         color: Theme.of(context).textTheme.headline1!.color,
       ),
       label: Text(
-        "Usuń wydarz.",
+        tr("DeleteEvent"),
         style: TextStyle(
           color: Theme.of(context).textTheme.headline1!.color,
         ),
@@ -57,7 +58,7 @@ class _DeleteButtonState extends State<DeleteButton> {
             backgroundColor: Theme.of(context).cardColor,
             children: [
               Text(
-                'Czy napewno chesz usunąć wydarzenie?',
+                tr("DeleteQuestion"),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.headline1!.color,
@@ -82,7 +83,7 @@ class _DeleteButtonState extends State<DeleteButton> {
                       Navigator.of(ctx).pop();
                     },
                     child: Text(
-                      "Usuń",
+                      tr("Delete"),
                       style: TextStyle(
                         color: Theme.of(context).textTheme.headline1!.color,
                         fontSize: 18,
@@ -95,7 +96,7 @@ class _DeleteButtonState extends State<DeleteButton> {
                       Navigator.of(ctx).pop();
                     },
                     child: Text(
-                      "Anuluj",
+                      tr("Cancel"),
                       style: TextStyle(
                         color: Theme.of(context).textTheme.headline1!.color,
                         fontSize: 18,

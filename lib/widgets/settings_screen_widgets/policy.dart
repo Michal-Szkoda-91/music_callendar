@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,7 +30,7 @@ class _PolicyPrivacySettingState extends State<PolicyPrivacySetting> {
             contentPadding: EdgeInsets.all(12),
             tileColor: Theme.of(context).backgroundColor,
             title: Text(
-              'Politka Prywatności i Zasady użycia aplikacji',
+              tr("PolicyTitle"),
               style: TextStyle(
                 color: Theme.of(context).textTheme.headline1!.color,
               ),
