@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -77,7 +78,7 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "Notatki",
+                              tr("Notes"),
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .textTheme
@@ -193,7 +194,7 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
                                     .color,
                               ),
                               label: Text(
-                                "Zapisz",
+                                tr("Save"),
                                 style: TextStyle(
                                   color: Theme.of(context)
                                       .textTheme

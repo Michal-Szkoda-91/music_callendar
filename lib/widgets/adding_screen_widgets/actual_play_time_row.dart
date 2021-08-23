@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ActualPlayTimeRow extends StatelessWidget {
@@ -17,7 +18,8 @@ class ActualPlayTimeRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          'Czas gry \nna instrumencie:',
+          tr("InstrumentPlayTime"),
+          softWrap: true,
           style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,

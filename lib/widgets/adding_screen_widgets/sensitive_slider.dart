@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -25,7 +26,7 @@ class _SensitiveSliderState extends State<SensitiveSlider> {
       child: Column(
         children: [
           Text(
-            "Czułość",
+            tr("Sensitive"),
             style: TextStyle(
               color: Theme.of(context).textTheme.headline1!.color,
               fontSize: 12,

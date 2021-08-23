@@ -1,3 +1,27 @@
 {
-    "title":"Music Calendar"
+    "title":"Music Calendar",
+    "StartGame":"Begin Game",
+    "GameTime":"Game Time: ",
+    "NoNotes":"no notes",
+    "NoSaveQuestion":"Are you sure you want to exit without saving your data?",
+    "DeleteQuestion":"Are you sure you want to delete the event?",
+    "Quit":"Quit",
+    "Save":"Save",
+    "Delete":"Delete",
+    "Cancel":"Cancel",
+    "Settings":"Settings",
+    "InstrumentPlayTime":"Playing time \non the instrument:",
+    "DeleteEvent":"Delete event",
+    "Notes":"Notes",
+    "AllTime":"Całkowity czas: ",
+    "Sensitive":"Sensitivity",
+    "Target":"Target",
+    "TimePickerTitle":"Set the length of the instrument play planned for today",
+    "AutoSaveTitle":"Automatically save game time",
+    "AutoSaveDescription":"If the option is enabled, the program automatically saves data once a second so that the user does not lose progress during the game even when the application is unexpectedly turned off.",
+    "PolicyTitle":"Privacy policy and terms of service",
+    "RecordTimeLatencyTitle":"Recording delay",
+    "RecordTimeLatencyDescription":"Sets the time that the application must listen to before audio recording and time counting begin",
+    "SilenceTimeLatencyTitle":"Recording stop delay",
+    "SilenceTimeLatencyDescription":"Sets the silence time needed to stop the counting of the playing time of the instrument."
 }

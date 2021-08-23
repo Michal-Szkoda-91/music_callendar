@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/brighnes_icon.dart';
@@ -28,7 +29,7 @@ class SettingsScreen extends StatelessWidget {
             },
           ),
           title: Text(
-            "Ustawienia",
+            tr("Settings"),
             style: TextStyle(
               color: Theme.of(context).textTheme.headline1!.color,
             ),
