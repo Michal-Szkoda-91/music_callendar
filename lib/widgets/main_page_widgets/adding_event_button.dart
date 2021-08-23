@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';
 
@@ -20,7 +21,7 @@ class AddingEventButton extends StatelessWidget {
         color: Theme.of(context).accentColor,
       ),
       label: Text(
-        "Rozpocznij Grę",
+        tr("StartGame"),
         style: TextStyle(
           fontSize: 25,
           color: Theme.of(context).accentColor,

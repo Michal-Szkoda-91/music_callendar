@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/music_event_adding_screen.dart';
@@ -70,7 +71,7 @@ class InfoEventCard extends StatelessWidget {
                 ),
               ),
               Text(
-                'Czas gry: ',
+                tr("GameTime"),
                 style: TextStyle(
                   fontSize: 15,
                   color: Theme.of(context).primaryColor,
@@ -90,7 +91,7 @@ class InfoEventCard extends StatelessWidget {
                 tilePadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 title: musicEvent.note == ''
                     ? Text(
-                        'brak notatek',
+                        tr("NoNotes"),
                         style: _noteStyle(context),
                       )
                     : musicEvent.note.length < 50
