@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 
+import '../ads/ad_banner.dart';
 import '../widgets/brighnes_icon.dart';
 import '../screens/settings_screen.dart';
 import '../databaseHelper/databaseHelper.dart';
@@ -84,6 +85,8 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                 //
                 ? Column(
                     children: [
+                      BannerContainer(),
+                      const SizedBox(height: 8),
                       _createSaveDeleteButton(),
                       TargetTimeRow(
                         targetTime: widget.musicEvent.targetTime,
@@ -92,6 +95,7 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                         playTime: widget.musicEvent.playTime,
                         generalTime: widget.musicEvent.generalTime,
                       ),
+                      const SizedBox(height: 150),
                     ],
                   )
                 :
@@ -100,6 +104,8 @@ class _MusicEventAddingScreenState extends State<MusicEventAddingScreen> {
                 //
                 Column(
                     children: [
+                      BannerContainer(),
+                      const SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
