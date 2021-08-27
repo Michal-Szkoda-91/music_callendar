@@ -47,7 +47,8 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
     generalPlayTime = Duration(seconds: widget.generalTime);
     _isListen = false;
     _isRecording = false;
-
+    Provider.of<MusicProvider>(context, listen: false).setSilenceCounter(0);
+    Provider.of<MusicProvider>(context, listen: false).setRecordCounter(0);
     super.initState();
   }
 
@@ -149,7 +150,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
                 child: Icon(
                   Icons.play_arrow,
                   size: 45,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 onTap: startListen,
               )
@@ -157,7 +158,7 @@ class _PlayTimeRowState extends State<PlayTimeRow> {
                 child: Icon(
                   Icons.stop,
                   size: 45,
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
                 onTap: _stopListen,
               ),

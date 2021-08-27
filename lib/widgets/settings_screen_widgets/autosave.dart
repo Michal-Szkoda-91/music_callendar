@@ -51,7 +51,7 @@ class _AutosaveSettingState extends State<AutosaveSetting> {
           trailing: Column(
             children: [
               CupertinoSwitch(
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 trackColor: Theme.of(context).cardColor,
                 onChanged: (val) {
                   var data =

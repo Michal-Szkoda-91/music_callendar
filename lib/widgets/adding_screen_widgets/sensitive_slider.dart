@@ -63,7 +63,7 @@ class _SensitiveSliderState extends State<SensitiveSlider> {
                     (dynamic actualValue, String formattedText) {
                   return actualValue == 20 ? '\max' : '\min';
                 },
-                activeColor: Theme.of(context).accentColor,
+                activeColor: Theme.of(context).colorScheme.secondary,
                 inactiveColor: Theme.of(context).backgroundColor,
               ),
             ),

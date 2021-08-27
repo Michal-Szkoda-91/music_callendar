@@ -37,7 +37,7 @@ class _SelectedDayBuilderState extends State<SelectedDayBuilder> {
       context: context,
     );
     return BuilderCallendarContainer(
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).colorScheme.secondary,
       day: widget.day,
       child: event.id == ''
           ? Center()

@@ -33,7 +33,7 @@ class ActualPlayTimeRow extends StatelessWidget {
             border: Border(
               bottom: BorderSide(
                 width: 2,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
           ),

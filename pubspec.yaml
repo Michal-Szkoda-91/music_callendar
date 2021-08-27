@@ -43,6 +43,7 @@ dependencies:
   url_launcher: ^6.0.9
   syncfusion_flutter_core: ^19.2.56
   easy_localization: ^3.0.0
+  google_mobile_ads: ^0.13.4
 
 
 

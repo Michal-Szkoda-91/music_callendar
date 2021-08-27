@@ -17,7 +17,7 @@ class _CustomToolTipState extends State<CustomToolTip> {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).colorScheme.secondary,
             spreadRadius: 2,
             blurRadius: 2,
             offset: Offset(0, 0),

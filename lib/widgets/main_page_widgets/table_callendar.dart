@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/material.dart';
 
+import 'package:music_callendar/ads/ad_banner.dart';
 import 'info_event_card.dart';
 import '../../databaseHelper/databaseHelper.dart';
 import '../../models/music_day_event.dart';
@@ -23,6 +25,10 @@ class CustomTableCalendar extends StatefulWidget {
 }
 
 class _CustomTableCalendarState extends State<CustomTableCalendar> {
+  Future<InitializationStatus> _initGoogleMobileAds() {
+    return MobileAds.instance.initialize();
+  }
+
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
   DatabaseHelper helper = DatabaseHelper();
@@ -49,29 +55,37 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<MusicEvents>(context, listen: false);
-    return SingleChildScrollView(
-      child: MediaQuery.of(context).orientation == Orientation.portrait
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                _createTableCalendar(),
-                const SizedBox(height: 25),
-                _createCardContainer(data),
-              ],
-            )
-          : Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: _createTableCalendar()),
-                Container(
-                    padding: const EdgeInsets.only(top: 60),
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: _createCardContainer(data)),
-              ],
-            ),
+    return FutureBuilder(
+      future: _initGoogleMobileAds(),
+      builder: (context, snapshot) {
+        return SingleChildScrollView(
+          child: MediaQuery.of(context).orientation == Orientation.portrait
+              //Portrait settings
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    _createTableCalendar(),
+                    const SizedBox(height: 25),
+                    _createCardContainer(data),
+                    BannerContainer(),
+                  ],
+                )
+              // landscape settings
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: _createTableCalendar()),
+                    Container(
+                        padding: const EdgeInsets.only(top: 60),
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: _createCardContainer(data)),
+                  ],
+                ),
+        );
+      },
     );
   }
 
