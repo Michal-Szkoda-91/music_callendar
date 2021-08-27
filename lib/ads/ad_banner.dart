@@ -54,6 +54,9 @@ class _BannerContainerState extends State<BannerContainer> {
             height: _ad.size.height.toDouble(),
             alignment: Alignment.center,
           )
-        : Center();
+        : Container(
+            width: _ad.size.width.toDouble(),
+            height: _ad.size.height.toDouble(),
+          );
   }
 }

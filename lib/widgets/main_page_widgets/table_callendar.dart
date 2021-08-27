@@ -64,10 +64,10 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    BannerContainer(),
                     _createTableCalendar(),
                     const SizedBox(height: 25),
                     _createCardContainer(data),
-                    BannerContainer(),
                   ],
                 )
               // landscape settings
@@ -79,9 +79,15 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                         width: MediaQuery.of(context).size.width * 0.5,
                         child: _createTableCalendar()),
                     Container(
-                        padding: const EdgeInsets.only(top: 60),
+                        // padding: const EdgeInsets.only(top: 60),
                         width: MediaQuery.of(context).size.width * 0.4,
-                        child: _createCardContainer(data)),
+                        child: Column(
+                          children: [
+                            BannerContainer(),
+                            const SizedBox(height: 30),
+                            _createCardContainer(data),
+                          ],
+                        )),
                   ],
                 ),
         );
