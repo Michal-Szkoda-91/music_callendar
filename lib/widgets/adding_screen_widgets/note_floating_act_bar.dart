@@ -40,7 +40,7 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
           borderRadius: BorderRadius.circular(30),
           color: _selected
               ? Theme.of(context).cardColor
-              : Theme.of(context).accentColor,
+              : Theme.of(context).colorScheme.secondary,
         ),
         width: _selected
             ? MediaQuery.of(context).size.width *

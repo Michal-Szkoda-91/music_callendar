@@ -10,7 +10,7 @@ class SaveButton extends StatelessWidget {
     return ElevatedButton.icon(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
-          Theme.of(context).accentColor,
+          Theme.of(context).colorScheme.secondary,
         ),
       ),
       onPressed: () {

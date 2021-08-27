@@ -34,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
               color: Theme.of(context).textTheme.headline1!.color,
             ),
           ),
-          backgroundColor: Theme.of(context).accentColor,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
         ),
         body: SingleChildScrollView(
           child: Column(
