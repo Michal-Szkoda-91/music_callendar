@@ -27,6 +27,7 @@ class _NoteFloatingBarState extends State<NoteFloatingBar> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -108,6 +108,7 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
   }
 
   TableCalendar<dynamic> _createTableCalendar() {
+    var mediaQuery = MediaQuery.of(context);
     return TableCalendar(
       availableGestures: AvailableGestures.horizontalSwipe,
       locale: _locale,
@@ -136,6 +137,9 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
           color: Theme.of(context).errorColor,
         ),
       ),
+      rowHeight: mediaQuery.orientation == Orientation.portrait
+          ? mediaQuery.size.width / 7
+          : (mediaQuery.size.width * 0.5) / 7,
       focusedDay: _focusedDay,
       firstDay: DateTime.utc(2000),
       lastDay: DateTime.utc(2200),

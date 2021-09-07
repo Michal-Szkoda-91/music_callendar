@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:new_version/new_version.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/brighnes_icon.dart';
+import '../widgets/brightness_icon.dart';
 import '../models/setting_providers.dart';
 import '../models/music_day_event.dart';
 import '../screens/settings_screen.dart';

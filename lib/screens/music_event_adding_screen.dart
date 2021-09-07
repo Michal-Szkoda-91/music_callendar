@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 
 import '../ads/ad_banner.dart';
-import '../widgets/brighnes_icon.dart';
+import '../widgets/brightness_icon.dart';
 import '../screens/settings_screen.dart';
 import '../databaseHelper/databaseHelper.dart';
 import '../models/music_day_event.dart';
