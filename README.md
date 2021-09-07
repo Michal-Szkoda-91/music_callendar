@@ -11,7 +11,9 @@ It allows to save your daily game time in the simple calendar. It can be useful 
 - Application supports light and dark theme.
 - App is available in four languages - English, Polish, German and Spanish.
 
-![Screenshot_20210906-193347](https://user-images.githubusercontent.com/68157494/132331315-2699065d-bdbb-44c6-ba1f-6d7cde372181.png) ![Screenshot_20210906-193355](https://user-images.githubusercontent.com/68157494/132331352-c6dced4c-96ee-432e-93f8-b6b511473f99.png) ![Screenshot_20210906-193418](https://user-images.githubusercontent.com/68157494/132331377-664c5665-86b6-4476-945f-94a1f303b354.png) ![Screenshot_20210906-193424](https://user-images.githubusercontent.com/68157494/132331417-fa595858-8ecf-4fb2-879f-849f54a7c8e2.png) ![Screenshot_20210906-193528](https://user-images.githubusercontent.com/68157494/132331445-aa39cea2-5282-4a02-96a0-26c9ce8be7cd.png) 
-![Screenshot_20210907-121809](https://user-images.githubusercontent.com/68157494/132331465-3a9dca2e-e323-482d-8701-b7430d349586.png) ![Screenshot_20210907-121802](https://user-images.githubusercontent.com/68157494/132331476-d846b306-c9b8-41bc-9327-9bb2bae99e1b.png)
+![Screenshot_20210906-193347](https://user-images.githubusercontent.com/68157494/132331673-38e2d799-b7ba-4889-8cf5-da860fb0661d.png) ![Screenshot_20210906-193355](https://user-images.githubusercontent.com/68157494/132331674-42e47b91-a6a4-48f9-973e-2df5e7dd7d78.png) ![Screenshot_20210906-193418](https://user-images.githubusercontent.com/68157494/132331679-aa631a02-fbf2-46c5-b4fb-8c18a373b8f1.png) ![Screenshot_20210906-193424](https://user-images.githubusercontent.com/68157494/132331680-1698f34c-b7eb-459a-b592-ba7cbd50d0bf.png) ![Screenshot_20210906-193516](https://user-images.githubusercontent.com/68157494/132331682-b1b20e14-fee9-44c1-9203-1e8b7b871f94.png) ![Screenshot_20210907-121802](https://user-images.githubusercontent.com/68157494/132331720-d19a9599-8685-4e87-b936-190c2147fd7f.png)
+
+![Screenshot_20210907-121809](https://user-images.githubusercontent.com/68157494/132331722-ae33ec74-be87-4264-af45-70b900b20ad4.png) ![Screenshot_20210906-193528](https://user-images.githubusercontent.com/68157494/132331686-64f252fd-9ec6-458e-9767-fba914910f1d.png)
+
 
 
