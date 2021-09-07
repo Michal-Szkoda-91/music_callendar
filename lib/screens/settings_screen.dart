@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/brighnes_icon.dart';
+import '../widgets/brightness_icon.dart';
 import '../../widgets/settings_screen_widgets/policy.dart';
 import '../../widgets/settings_screen_widgets/silence_time_setting.dart';
 import '../../widgets/settings_screen_widgets/record_time_setting.dart';
