@@ -50,19 +50,24 @@ class _AutosaveSettingState extends State<AutosaveSetting> {
           ),
           trailing: Column(
             children: [
-              CupertinoSwitch(
-                activeColor: Theme.of(context).colorScheme.secondary,
-                trackColor: Theme.of(context).cardColor,
-                onChanged: (val) {
-                  var data =
-                      Provider.of<SettingProvider>(context, listen: false);
-                  data.setAutoSave(val);
-                  setState(() {
-                    _actualValue = val;
-                  });
-                },
-                value: _actualValue,
+              Spacer(),
+              Container(
+                height: 20,
+                child: CupertinoSwitch(
+                  activeColor: Theme.of(context).colorScheme.secondary,
+                  trackColor: Theme.of(context).cardColor,
+                  onChanged: (val) {
+                    var data =
+                        Provider.of<SettingProvider>(context, listen: false);
+                    data.setAutoSave(val);
+                    setState(() {
+                      _actualValue = val;
+                    });
+                  },
+                  value: _actualValue,
+                ),
               ),
+              Spacer(),
               Text(
                 _actualValue ? 'ON' : 'OFF',
                 style: TextStyle(

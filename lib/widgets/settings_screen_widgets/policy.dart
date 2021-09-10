@@ -32,7 +32,7 @@ class _PolicyPrivacySettingState extends State<PolicyPrivacySetting> {
             title: Text(
               tr("PolicyTitle"),
               style: TextStyle(
-                color: Theme.of(context).textTheme.headline1!.color,
+                color: Colors.blueAccent,
               ),
               textAlign: TextAlign.center,
             ),
