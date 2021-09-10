@@ -24,5 +24,9 @@
     "RecordTimeLatencyTitle":"Retraso en la grabación",
     "RecordTimeLatencyDescription":"Establece el tiempo que la aplicación debe escuchar antes de que comience la grabación de audio y el recuento de tiempos adecuados",
     "SilenceTimeLatencyTitle":"Retraso de detención de grabación",
-    "SilenceTimeLatencyDescription":"Establece el tiempo de silencio necesario para detener la acumulación de tiempo de tocar en un instrumento."
+    "SilenceTimeLatencyDescription":"Establece el tiempo de silencio necesario para detener la acumulación de tiempo de tocar en un instrumento.",
+    "UpdateDialogTitle":"Actualizar",
+    "UpdateDialogText":"¡Hay disponible una nueva versión de la aplicación!",
+    "UpdateButtonText":"Actualizar",
+    "UpdateButtonDissmisText":"Cancelar"
 }

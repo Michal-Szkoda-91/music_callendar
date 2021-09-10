@@ -24,5 +24,9 @@
     "RecordTimeLatencyTitle":"Opóźnienie nagrywania",
     "RecordTimeLatencyDescription":"Ustawia czas jaki aplikacja musi nasłuchiwać zanim zacznie się właściwe nagrywanie dźwięku i zliczanie czasu",
     "SilenceTimeLatencyTitle":"Opóźnienie zatrzymania nagrywania",
-    "SilenceTimeLatencyDescription":"Ustawia czas ciszy potrzebny do zatrzymania naliczania czasu gry na instrumencie."
+    "SilenceTimeLatencyDescription":"Ustawia czas ciszy potrzebny do zatrzymania naliczania czasu gry na instrumencie.",
+    "UpdateDialogTitle":"Aktualizacja",
+    "UpdateDialogText":"Jest dostępna nowa werjsa aplikacji!",
+    "UpdateButtonText":"Aktualizuj",
+    "UpdateButtonDissmisText":"Anuluj"
 }

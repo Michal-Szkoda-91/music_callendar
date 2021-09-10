@@ -24,5 +24,9 @@
     "RecordTimeLatencyTitle":"Aufzeichnungsverzögerung",
     "RecordTimeLatencyDescription":"Legt die Zeit fest, die die Anwendung anhören muss, bevor die Audioaufzeichnung und die Zeitzählung beginnen",
     "SilenceTimeLatencyTitle":"Verzögerung beim Stoppen der Aufzeichnung",
-    "SilenceTimeLatencyDescription":"Legt die Stillezeit fest, die benötigt wird, um die Zählung der Spielzeit des Instruments zu stoppen."
+    "SilenceTimeLatencyDescription":"Legt die Stillezeit fest, die benötigt wird, um die Zählung der Spielzeit des Instruments zu stoppen.",
+    "UpdateDialogTitle":"Update",
+    "UpdateDialogText":"Es gibt eine neue App!",
+    "UpdateButtonText":"Aktualisieren",
+    "UpdateButtonDissmisText":"Abbrechen"
 }
