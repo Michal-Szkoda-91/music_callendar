@@ -34,14 +34,16 @@ class _MainPageState extends State<MainPage> {
   Future<void> _checkVersion(BuildContext context) async {
     final status = await newVersion.getVersionStatus();
     if (status!.canUpdate) {
-      newVersion.showAlertIfNecessary(context: context);
+      newVersion.showUpdateDialog(
+        context: context,
+        versionStatus: status,
+        dialogTitle: tr("UpdateDialogTitle"),
+        dialogText: tr("UpdateDialogText"),
+        updateButtonText: tr("UpdateButtonText"),
+        dismissButtonText: tr("UpdateButtonDissmisText"),
+        dismissAction: () => Navigator.of(context).pop(),
+      );
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _checkVersion(context);
   }
 
   @override
@@ -61,6 +63,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    _checkVersion(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

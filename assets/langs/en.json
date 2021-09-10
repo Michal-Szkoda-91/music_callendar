@@ -24,5 +24,9 @@
     "RecordTimeLatencyTitle":"Recording delay",
     "RecordTimeLatencyDescription":"Sets the time that the application must listen to before audio recording and time counting begin",
     "SilenceTimeLatencyTitle":"Recording stop delay",
-    "SilenceTimeLatencyDescription":"Sets the silence time needed to stop the counting of the playing time of the instrument."
+    "SilenceTimeLatencyDescription":"Sets the silence time needed to stop the counting of the playing time of the instrument.",
+    "UpdateDialogTitle":"Update",
+    "UpdateDialogText":"A new version of the application is available!",
+    "UpdateButtonText":"Update",
+    "UpdateButtonDissmisText":"Cancel"
 }
