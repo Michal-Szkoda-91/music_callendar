@@ -31,6 +31,7 @@ class _SensitiveSliderState extends State<SensitiveSlider> {
               color: Theme.of(context).textTheme.headline1!.color,
               fontSize: 12,
             ),
+            textAlign: TextAlign.center,
           ),
           Center(
             child: SfSliderTheme(

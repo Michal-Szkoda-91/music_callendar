@@ -17,17 +17,26 @@ class ActualPlayTimeRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Text(
-          tr("InstrumentPlayTime"),
-          softWrap: true,
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color: Theme.of(context).textTheme.headline1!.color,
+        Container(
+          width: MediaQuery.of(context).orientation == Orientation.portrait
+              ? MediaQuery.of(context).size.width * 0.45
+              : MediaQuery.of(context).size.width * 0.2,
+          child: Text(
+            tr("InstrumentPlayTime"),
+            overflow: TextOverflow.visible,
+            softWrap: true,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Theme.of(context).textTheme.headline1!.color,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
         ),
         Container(
+          width: MediaQuery.of(context).orientation == Orientation.portrait
+              ? MediaQuery.of(context).size.width * 0.55
+              : MediaQuery.of(context).size.width * 0.25,
           padding: EdgeInsets.symmetric(horizontal: 5),
           decoration: BoxDecoration(
             border: Border(
@@ -40,12 +49,16 @@ class ActualPlayTimeRow extends StatelessWidget {
           child: Text(
             '${actualPlayTime.toString().split(".")[0]}',
             style: TextStyle(
-              fontSize: 35,
+              fontSize:
+                  MediaQuery.of(context).orientation == Orientation.portrait
+                      ? 35
+                      : 25,
               fontWeight: FontWeight.bold,
               color: _isRecording
                   ? Theme.of(context).textTheme.headline1!.color
                   : Theme.of(context).cardColor,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
       ],
